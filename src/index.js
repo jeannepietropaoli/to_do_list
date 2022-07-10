@@ -1,15 +1,12 @@
 import './css/initPageLoad.css';
-import { Task, TaskList } from './functionnalities/Task';
-import {FullTaskBoardDisplay} from './view  ihm/TaskBoard';
-import {TaskListAddBTn} from './view  ihm/TaskBoard';
-import {FillTaskListGrid} from './view  ihm/TaskBoard';
+import './css/modal.css'
+import {newTask, taskOptions, ADDTASKBTN} from './view  ihm/TaskBoard';
+import {MODAL_CONTAINER} from './view  ihm/modal';
 
-
-
-FullTaskBoardDisplay();
-
-TaskListAddBTn.getAddBtn.addEventListener('click', ()=> {
-    FillTaskListGrid.displayNewTask();
+ADDTASKBTN.addEventListener('click', ()=> {
+    /*newTask.display();
+    taskOptions.create(); */
+    MODAL_CONTAINER.classList.add('shown');
 });
 
 

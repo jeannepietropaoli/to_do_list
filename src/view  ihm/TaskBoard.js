@@ -1,114 +1,48 @@
 import '../css/TaskBoard.css';
 import {TaskList} from '../functionnalities/Task';
 
-const MAIN = document.querySelector('main');
+const TASKGRID = document.querySelector('.taskListGrid');
+export const ADDTASKBTN = document.querySelector('.addBtn');
 
-const TaskBoardTitle = (()=> {
-    const titleContent = 'Task Board';
-
-    const createTitle = ()=> {
-        const title = document.createElement('h3');
-        title.textContent = titleContent;
-        return title;
+export const taskOptions = (()=> {
+    const createOptionsDiv = ()=> {
+        const options = document.createElement('div');
+        options.classList.add('options');
+        TASKGRID.appendChild(options);
+        return options;
     }
-
-    const display = ()=> {
-        MAIN.appendChild(createTitle());
+    const createDeleteBtn = ()=> {
+        const deleteTask = document.createElement('img');
+        deleteTask.classList.add('deleteTask');
+        deleteTask.setAttribute('src', '../src/delete.svg')
+        return deleteTask;
+    }
+    const createEditBtn = ()=> {
+        const editTask = document.createElement('img');
+        editTask.classList.add('editTask');
+        editTask.setAttribute('src', '../src/edit.svg')
+        return editTask;
     }
     return {
-        display,
+        create : ()=> {
+            createOptionsDiv().append(createEditBtn(), createDeleteBtn());
+        }
     }
 })()
 
-const TaskListGrid = (()=> {
-    const createTaskListGrid = ()=> {
-        const taskListGrid = document.createElement('div');
-        taskListGrid.classList.add('taskListGrid');
-        console.log('create tasklist grid');
-        return taskListGrid;
+export const newTask = (()=> {
+    const create = ()=> {
+        return TaskList.addTask();
     }
-
-    const getGrid = createTaskListGrid();
     
-    const display = ()=> {
-        document.querySelector('main').appendChild(getGrid);
-    }
-
     return {
-        display,
-        getGrid,
-        createTaskListGrid
+        display : ()=> {
+            const newTask = create();
+            for (const detail in newTask){
+                const detailToDisplay = document.createElement('p');
+                detailToDisplay.textContent = newTask[detail];
+                TASKGRID.appendChild(detailToDisplay);
+            }
+        }
     }
 })()
-
-const TaskListHeaders = (()=> {
-    const headers = ['title', 'description', 'due date', 'category'];
-
-    const createDOMHeaders = ()=> {
-        const headerDOMElements = headers.map(header => {
-             const headerDOM = document.createElement('h4');
-             headerDOM.textContent = header;
-             return headerDOM;
-        })
-        return headerDOMElements
-    };
-
-    const getDOMHeaders = createDOMHeaders();
-
-    return {
-        getDOMHeaders
-    }
-})()
-
-export const TaskListAddBTn = (()=> {
-    const createTaskListAddBtn = ()=> {
-        const addBtn = document.createElement('div');
-        addBtn.classList.add('addBtn');
-        addBtn.textContent = 'Add a task';
-        return addBtn;
-    }
-
-    const getAddBtn = createTaskListAddBtn();
-
-    return {
-        getAddBtn
-    }
-})();
-
-export const FillTaskListGrid = (() => {
-    
-    const displayHeaders = () => {
-        TaskListHeaders.getDOMHeaders.forEach(header => TaskListGrid.getGrid.appendChild(header));
-    }
-
-    const displayAddBtn = ()=> {
-        TaskListGrid.getGrid.appendChild(TaskListAddBTn.getAddBtn)  ;
-    }
-
-    const displayNewTask = ()=> {
-        const newTask = TaskList.addTask();
-        for (const detail in newTask){
-            const detailToDisplay = document.createElement('p');
-            detailToDisplay.textContent = newTask[detail];
-            TaskListGrid.getGrid.appendChild(detailToDisplay);
-        } 
-    }
-
-    const fill = ()=> {
-        displayHeaders();
-        displayAddBtn()
-    }
-
-    return {
-        fill,
-        displayNewTask
-    }
-})()
-
-export const FullTaskBoardDisplay = ()=> {
-    return  Object.assign({},
-        TaskBoardTitle.display(),
-        TaskListGrid.display(),
-        FillTaskListGrid.fill()
-        )
-}
