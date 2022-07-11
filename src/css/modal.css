@@ -27,3 +27,7 @@
     padding: 20px;
     background-color: white;
 }
+
+#closeModal {
+    cursor: pointer;
+}

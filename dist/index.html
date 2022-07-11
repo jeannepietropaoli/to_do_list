@@ -37,12 +37,33 @@
     </main>
 
     <div class="modalContainer">
-        <div class="modal">
-            <div class="close">x</div>
-            <h1>Enter your task's details</h1>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum sed placeat voluptate.</p>
-            <button id="close">Add to the list</button>
-        </div>
+        <form class="modal" method="post">
+            <div id="closeModal">x</div>
+
+            <h2>Enter your task's details</h2>
+
+            <div class="formField">
+                <label for="title">Task title</label>
+                <input type="text" id="title" required>
+            </div>
+
+            <div class="formField">
+                <label for="description">Description</label>
+                <input type="text" id="description" required>
+            </div>
+
+            <div class="formField">
+                <label for="date">Task due date</label>
+                <input type="text" id="date" required>
+            </div>
+
+            <div class="formField">
+                <label for="category">Task category</label>
+                <input type="text" id="category" required>
+            </div>
+
+            <button type="button" id="submit">Add to the list</button>
+        </form>
     </div>
 </div>
 </body>

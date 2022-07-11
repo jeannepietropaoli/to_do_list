@@ -18,6 +18,7 @@
 .addBtn {
     grid-column: 1 / -1;
     border: 2px dotted grey;
+    cursor: pointer;
 }
 
 .options img {

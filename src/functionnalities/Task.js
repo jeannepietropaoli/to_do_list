@@ -1,3 +1,5 @@
+import { inputsValues } from './modal'
+
 export class Task {
     constructor(title, description, dueDate, category) {
         this._title = title;
@@ -46,15 +48,8 @@ export const TaskList = (()=> {
         return list;
     }
 
-    const addTask = (title, description, dueDate, category)=> {
-        /*const details = [];
-        arguments.forEach(detail => {
-            const input = prompt(`Task ${detail} ?`);
-            details.push(input);
-        }) */
-        const newTask = new Task(prompt('title please ?'), prompt('description please ?'), prompt('due date please ?'), prompt('category please ?'));
+    const addTask = (newTask)=> {
         list.push(newTask);
-        return newTask;
     }
 
     const deleteTask = (task) => {

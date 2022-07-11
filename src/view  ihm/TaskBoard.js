@@ -31,18 +31,28 @@ export const taskOptions = (()=> {
 })()
 
 export const newTask = (()=> {
-    const create = ()=> {
-        return TaskList.addTask();
+    const getNewTask = ()=> {
+        const list = TaskList.getList();
+        return list[list.length-1];
     }
     
     return {
         display : ()=> {
-            const newTask = create();
+            const newTask = getNewTask();
             for (const detail in newTask){
                 const detailToDisplay = document.createElement('p');
                 detailToDisplay.textContent = newTask[detail];
                 TASKGRID.appendChild(detailToDisplay);
             }
+        }
+    }
+})()
+
+export const fullTask = (()=> {
+    return {
+        display : ()=> {
+            newTask.display();
+            taskOptions.create(); 
         }
     }
 })()
