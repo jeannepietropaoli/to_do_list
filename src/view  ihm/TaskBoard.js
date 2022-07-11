@@ -8,7 +8,6 @@ export const taskOptions = (()=> {
     const createOptionsDiv = ()=> {
         const options = document.createElement('div');
         options.classList.add('options');
-        TASKGRID.appendChild(options);
         return options;
     }
     const createDeleteBtn = ()=> {
@@ -24,8 +23,10 @@ export const taskOptions = (()=> {
         return editTask;
     }
     return {
-        create : ()=> {
-            createOptionsDiv().append(createEditBtn(), createDeleteBtn());
+        getOptionsDiv : ()=> {
+            const optionDiv = createOptionsDiv();
+            optionDiv.append(createEditBtn(), createDeleteBtn());
+            return optionDiv
         }
     }
 })()
@@ -35,15 +36,25 @@ export const newTask = (()=> {
         const list = TaskList.getList();
         return list[list.length-1];
     }
+
+    const createNewTaskContainer = ()=> {
+        const taskContainer = document.createElement('div');
+        taskContainer.classList.add('task');
+        taskContainer.setAttribute('data-index', `${TaskList.getList().length-1}`);
+        TASKGRID.appendChild(taskContainer);
+        return taskContainer;
+    }
     
     return {
         display : ()=> {
             const newTask = getNewTask();
+            const taskContainer = createNewTaskContainer();
             for (const detail in newTask){
                 const detailToDisplay = document.createElement('p');
                 detailToDisplay.textContent = newTask[detail];
-                TASKGRID.appendChild(detailToDisplay);
+                taskContainer.appendChild(detailToDisplay);
             }
+            taskContainer.appendChild(taskOptions.getOptionsDiv());
         }
     }
 })()
@@ -52,7 +63,6 @@ export const fullTask = (()=> {
     return {
         display : ()=> {
             newTask.display();
-            taskOptions.create(); 
         }
     }
 })()
