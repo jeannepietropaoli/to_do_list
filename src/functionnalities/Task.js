@@ -52,8 +52,8 @@ export const TaskList = (()=> {
         list.push(newTask);
     }
 
-    const deleteTask = (task) => {
-        list.splice(list.indexOf(task),1);
+    const deleteTask = (taskIndex) => {
+        list.splice(taskIndex , 1);
     }
 
     return {
