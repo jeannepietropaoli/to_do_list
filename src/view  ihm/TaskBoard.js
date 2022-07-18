@@ -4,14 +4,39 @@ import {TaskList} from '../functionnalities/Task';
 export const TASKGRID = document.querySelector('.taskListGrid');
 export const ADDTASKBTN = document.querySelector('.addBtn');
 
-/* const deleteBtn = ()=> {
+const deleteButton = (()=> {
     const create = ()=> {
         const deleteTask = document.createElement('img');
         deleteTask.classList.add('deleteTask');
         deleteTask.setAttribute('src', '../src/delete.svg');
+        manageDeleteTask(deleteTask);
         return deleteTask;
     }
-} */
+
+    const manageDeleteTask = (deleteBtn)=> {
+        deleteBtn.addEventListener('click', (e) => {
+            TaskList.deleteTask(e.target.parentElement.parentElement.getAttribute('data-index'));
+            TASKGRID.removeChild(e.target.parentElement.parentElement);
+            updateDataIndex();
+        })
+    }
+    
+    return {
+        create
+    }
+})() 
+
+const editButton = (()=> {
+    const create = ()=> {
+        const editTask = document.createElement('img');
+        editTask.classList.add('editTask');
+        editTask.setAttribute('src', '../src/edit.svg')
+        return editTask;
+    }
+    return {
+        create
+    }
+})() 
 
 export const taskOptions = (()=> {
     const createOptionsDiv = ()=> {
@@ -19,39 +44,17 @@ export const taskOptions = (()=> {
         options.classList.add('options');
         return options;
     }
-    const createDeleteBtn = ()=> {
-        const deleteTask = document.createElement('img');
-        deleteTask.classList.add('deleteTask');
-        deleteTask.setAttribute('src', '../src/delete.svg');
-        return deleteTask;
-    }
 
-    const createEditBtn = ()=> {
-        const editTask = document.createElement('img');
-        editTask.classList.add('editTask');
-        editTask.setAttribute('src', '../src/edit.svg')
-        return editTask;
+    const optionsDivSetUp = ()=> {
+        const optionsDiv = createOptionsDiv();
+        optionsDiv.append(editButton.create(), deleteButton.create());
+        return optionsDiv
     }
 
     return {
-        getOptionsDiv : ()=> {
-            const optionDiv = createOptionsDiv();
-            const deleteBtn = createDeleteBtn();
-            const editBtn = createEditBtn();
-            manageDeleteTask(deleteBtn);
-            optionDiv.append(editBtn, deleteBtn);
-            return optionDiv
-        }
+        optionsDivSetUp
     }
 })()
-
-const manageDeleteTask = (deleteBtn)=> {
-    deleteBtn.addEventListener('click', (e) => {
-        TaskList.deleteTask(e.target.parentElement.parentElement.getAttribute('data-index'));
-        TASKGRID.removeChild(e.target.parentElement.parentElement);
-        updateDataIndex();
-    })
-}
 
 export const newTask = (()=> {
     const getNewTask = ()=> {
@@ -77,7 +80,7 @@ export const newTask = (()=> {
                 detailToDisplay.textContent = newTask[detail];
                 taskContainer.appendChild(detailToDisplay);
             }
-            taskContainer.appendChild(taskOptions.getOptionsDiv());
+            taskContainer.appendChild(taskOptions.optionsDivSetUp());
         }
     }
 })()
