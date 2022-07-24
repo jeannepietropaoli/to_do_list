@@ -13,6 +13,16 @@ const deleteButton = (()=> {
         return deleteTask;
     }
 
+    const updateDataIndex = ()=> {
+        const taskContainers = Array.from(document.querySelectorAll('[data-index]'));
+        if (taskContainers.length>0){
+            taskContainers[0].setAttribute('data-index', 0);
+            for (let i=0 ; i<taskContainers.length-1; i++){
+                taskContainers[i+1].setAttribute('data-index', parseInt(taskContainers[i].getAttribute('data-index'))+1);
+            }
+        }
+    }
+
     const manageDeleteTask = (deleteBtn)=> {
         deleteBtn.addEventListener('click', (e) => {
             TaskList.deleteTask(e.target.parentElement.parentElement.getAttribute('data-index'));
@@ -30,9 +40,32 @@ const editButton = (()=> {
     const create = ()=> {
         const editTask = document.createElement('img');
         editTask.classList.add('editTask');
-        editTask.setAttribute('src', '../src/edit.svg')
+        editTask.setAttribute('src', '../src/edit.svg');
+        manageEditTask(editTask);
         return editTask;
     }
+
+    const trasnformInputsBorders = (inputs)=> {
+        inputs.forEach(input => {
+            input.style.borderColor = 'red';
+            input.style.cursor = 'pointer';
+        })
+    }
+
+    const changeInputValue = ()=> {
+        
+    }
+
+    const manageEditTask = (editBtn)=> {
+        editBtn.addEventListener('click', (e)=> {
+            console.log(e.target.parentElement.parentElement);
+            const inputs = Array.from(e.target.parentElement.parentElement.children);
+            console.log(inputs);
+            trasnformInputsBorders(inputs);
+            changeInputValue();
+        })
+    }
+
     return {
         create
     }
@@ -69,36 +102,29 @@ export const newTask = (()=> {
         TASKGRID.appendChild(taskContainer);
         return taskContainer;
     }
+
+    const createTaskDetail = (detail, newTask)=> {
+        const detailToDisplay = document.createElement('input');
+        detailToDisplay.classList.add(detail);
+        detailToDisplay.value = newTask[detail];
+        detailToDisplay.style.width = `${detailToDisplay.value.length}ch`;
+        detailToDisplay.disabled = 'true';
+        return detailToDisplay;
+    }
+
+    const appendTaskDetail = (taskContainer, detailToDisplay)=> {
+        taskContainer.appendChild(detailToDisplay);
+    } 
     
     return {
         display : ()=> {
             const newTask = getNewTask();
             const taskContainer = createNewTaskContainer();
             for (const detail in newTask){
-                const detailToDisplay = document.createElement('p');
-                detailToDisplay.classList.add(detail);
-                detailToDisplay.textContent = newTask[detail];
-                taskContainer.appendChild(detailToDisplay);
+                const detailToDisplay = createTaskDetail(detail, newTask);
+                appendTaskDetail(taskContainer, detailToDisplay);
             }
             taskContainer.appendChild(taskOptions.optionsDivSetUp());
-        }
-    }
-})()
-
-export const updateDataIndex = ()=> {
-    const taskContainers = Array.from(document.querySelectorAll('[data-index]'));
-    if (taskContainers.length>0){
-        taskContainers[0].setAttribute('data-index', 0);
-        for (let i=0 ; i<taskContainers.length-1; i++){
-            taskContainers[i+1].setAttribute('data-index', parseInt(taskContainers[i].getAttribute('data-index'))+1);
-        }
-    }
-}
-
-export const fullTask = (()=> {
-    return {
-        display : ()=> {
-            newTask.display();
         }
     }
 })()

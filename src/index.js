@@ -9,7 +9,7 @@ ADDTASKBTN.addEventListener('click', ()=> {modalContainer.openModal()});
 function manageTaskCreation() {
     const brandNewTask = new Task(...form.getInputsValues());
     TaskList.addTask(brandNewTask);
-    fullTask.display();
+    newTask.display();
 }
 
 function manageModalReset() {
