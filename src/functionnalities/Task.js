@@ -1,5 +1,3 @@
-import { inputsValues } from './modal'
-
 export class Task {
     constructor(title, description, dueDate, category) {
         this._title = title;

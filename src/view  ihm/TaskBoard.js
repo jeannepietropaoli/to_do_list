@@ -15,7 +15,7 @@ const deleteButton = (()=> {
     }
 
     const updateDataIndex = ()=> {
-        const taskContainers = Array.from(document.querySelectorAll('[data-index]'));
+        const taskContainers = Array.from(document.querySelectorAll('div[data-index]'));
         if (taskContainers.length>0){
             taskContainers[0].setAttribute('data-index', 0);
             for (let i=0 ; i<taskContainers.length-1; i++){

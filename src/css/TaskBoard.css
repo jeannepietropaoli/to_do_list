@@ -1,5 +1,6 @@
 .taskListGrid {
     width: 100%;
+    min-width: 600px;
     background-color: lightgray;
     row-gap: 10px;
     display: grid;

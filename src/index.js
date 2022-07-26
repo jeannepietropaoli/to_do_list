@@ -3,6 +3,8 @@ import './css/modal.css';
 import {TaskList, Task} from './functionnalities/Task';
 import {newTask, taskOptions, ADDTASKBTN, fullTask} from './view  ihm/TaskBoard';
 import { modalContainer, form, manageModalReset, formEditMode } from './functionnalities/modal';
+import { addProjectBtn, projectNameInput, ProjectBoard } from './view  ihm/ProjectBoard';
+import { Project, ProjectList } from './functionnalities/Project'
 
 ADDTASKBTN.addEventListener('click', ()=> {modalContainer.openModal()});
 
@@ -20,6 +22,18 @@ form.SUBMIT_BTN.addEventListener('click', ()=> {
         }
     }
 })
+
+
+addProjectBtn.addEventListener('click', ()=> {
+    if (projectNameInput.value !== ''){
+        const brandNewProject = new Project(projectNameInput.value);
+        ProjectList.addProject(brandNewProject);
+        ProjectBoard.displayNewProject(brandNewProject.title);
+        console.log(ProjectList.getList())
+    }
+})
+
+
 
 
 

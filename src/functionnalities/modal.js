@@ -20,7 +20,7 @@ export const modalContainer = (()=> {
 modalContainer.closeModalBtn.addEventListener('click', ()=> {modalContainer.closeModal()});
 
 export const form = (()=> {
-    const INPUTS = Array.from(document.querySelectorAll('input[id]'));
+    const INPUTS = Array.from(document.querySelectorAll('.modal input[id]'));
     const SUBMIT_BTN = document.querySelector('#submit');
 
     const getInputsValues = ()=> {
