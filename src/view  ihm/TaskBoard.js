@@ -48,16 +48,29 @@ const editButton = (()=> {
 
     const manageEditTask = (editBtn)=> {
         editBtn.addEventListener('click', (e)=> {
-            ajouter conftin chmps valides
+            form.SUBMIT_CHANGES_BTN.disabled = false;
             const inputs = Array.from(e.target.parentElement.parentElement.children);
             form.fillFormInputsWithCurrentValues(inputs);
             modalContainer.openModal();
+            form.INPUTS.forEach(input => {
+                input.addEventListener('change', ()=> {
+                    if (!form.isOneInputInvalid()) {
+                        form.SUBMIT_CHANGES_BTN.disabled = false;
+                    }
+                    if (form.isOneInputInvalid()){
+                        form.SUBMIT_CHANGES_BTN.disabled = true;
+                    }
+                })
+            })
             form.SUBMIT_CHANGES_BTN.addEventListener('click', ()=> {
-                let editedTask = new Task(...form.getInputsValues());
-                console.log(e.target.parentElement.parentElement.getAttribute('data-index'));
-                TaskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
-                displayEditedTask(editedTask, inputs);
-                manageModalReset();
+                if (!form.isOneInputInvalid()){
+                    let editedTask = new Task(...form.getInputsValues());
+                    console.log(e.target.parentElement.parentElement.getAttribute('data-index'));
+                    TaskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
+                    displayEditedTask(editedTask, inputs);
+                    manageModalReset();
+                }
+                form.SUBMIT_CHANGES_BTN.disabled = true;
             }, {once : true})
         })
     }
