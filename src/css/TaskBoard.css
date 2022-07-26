@@ -27,22 +27,17 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: e-resize;
 }
 
-.task input:hover::before {
-	content: attr(data-title);
-	position: absolute;
-	bottom: -46px;
-	padding: 10px;
-	background: #000;
-	color: #fff;
-	font-size: 14px;
-	white-space: nowrap;
+.task input::selection {
+    pointer-events: none;
 }
 
 .task,
 .taskListHeaders {
     width: 100%;
+    min-width: max-content;
     display: grid;
     grid-template-columns: 20% 40% 15% 15% 1fr;
     justify-content: stretch;
@@ -66,3 +61,4 @@
     height: 20px;
     width: auto;
 }
+

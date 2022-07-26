@@ -2,7 +2,7 @@ import './css/initPageLoad.css';
 import './css/modal.css';
 import {TaskList, Task} from './functionnalities/Task';
 import {newTask, taskOptions, ADDTASKBTN, fullTask} from './view  ihm/TaskBoard';
-import { modalContainer, form, manageModalReset } from './functionnalities/modal';
+import { modalContainer, form, manageModalReset, formEditMode } from './functionnalities/modal';
 
 ADDTASKBTN.addEventListener('click', ()=> {modalContainer.openModal()});
 
@@ -20,6 +20,8 @@ form.SUBMIT_BTN.addEventListener('click', ()=> {
         }
     }
 })
+
+
 
 
 

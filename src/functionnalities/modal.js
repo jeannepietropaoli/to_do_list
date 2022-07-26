@@ -1,3 +1,6 @@
+import {Task, TaskList} from '../functionnalities/Task';
+import { editButton } from '../view  ihm/TaskBoard';
+
 export const modalContainer = (()=> {
     const MODAL_CONTAINER = document.querySelector('.modalContainer');
     const closeModalBtn = document.querySelector('#closeModal');
@@ -19,17 +22,6 @@ modalContainer.closeModalBtn.addEventListener('click', ()=> {modalContainer.clos
 export const form = (()=> {
     const INPUTS = Array.from(document.querySelectorAll('input[id]'));
     const SUBMIT_BTN = document.querySelector('#submit');
-    const SUBMIT_CHANGES_BTN = document.querySelector('#editMode');
-
-    const editMode = () => {
-        SUBMIT_BTN.setAttribute('id', 'editMode');
-        SUBMIT_BTN.textContent = 'Submit changes';
-    }
-
-    const resetMode = ()=> {
-        SUBMIT_BTN.setAttribute('id', 'submit');
-        SUBMIT_BTN.textContent = 'Add to the list';
-    } 
 
     const getInputsValues = ()=> {
         return  INPUTS.map(input => {
@@ -46,26 +38,58 @@ export const form = (()=> {
         INPUTS.forEach(input => input.value = '');
     }
 
-    const fillFormInputsWithCurrentValues = (currentValues) => {
-        INPUTS.forEach((input) => {
-            const currentValue = currentValues.filter((element)=> {
-                return element.className === `_${input.id}`;
-            }) 
-            input.value = currentValue[0].value;
-         
-        }) 
-    }
-
     return {
         INPUTS,
         getInputsValues,
         isOneInputInvalid,
         clearInputsValues,
-        SUBMIT_BTN,
-        SUBMIT_CHANGES_BTN,
+        SUBMIT_BTN
+    }
+})()
+
+export const formEditMode = (()=> {
+    const SUBMIT_CHANGES_BTN = document.querySelector('#editMode');
+
+    const open = (currentInputs)=> {
+        form.SUBMIT_BTN.disabled = true;
+        SUBMIT_CHANGES_BTN.disabled = false;
+        fillFormInputsWithCurrentValues(currentInputs);
+        modalContainer.openModal();
+    }
+    
+    const inputsValidation = () => {
+        form.INPUTS.forEach(input => {
+            input.addEventListener('change', ()=> {
+                (!form.isOneInputInvalid()) ? SUBMIT_CHANGES_BTN.disabled = false : 
+                    SUBMIT_CHANGES_BTN.disabled = true;
+                })
+            })
+    }
+
+    const fillFormInputsWithCurrentValues = (currentValues) => {
+        form.INPUTS.forEach((input) => {
+            const currentValue = currentValues.filter((element)=> {
+                return element.className === `_${input.id}`;
+            }) 
+            input.value = currentValue[0].value;
+        }) 
+    }
+
+    const validateChanges = (e, inputs)=> {
+            let editedTask = new Task(...form.getInputsValues());
+            TaskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
+            editButton.displayEditedTask(editedTask, inputs);
+            manageModalReset();
+            form.SUBMIT_BTN.disabled = false;
+            SUBMIT_CHANGES_BTN.disabled = true;
+    }
+
+    return { 
+        inputsValidation,
         fillFormInputsWithCurrentValues,
-        editMode,
-        resetMode
+        SUBMIT_CHANGES_BTN, 
+        open,
+        validateChanges
     }
 })()
 

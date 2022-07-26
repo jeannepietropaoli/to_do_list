@@ -1,6 +1,6 @@
 import '../css/TaskBoard.css';
 import {Task, TaskList} from '../functionnalities/Task';
-import { modalContainer, form, manageModalReset } from '../functionnalities/modal';
+import { modalContainer, form, manageModalReset, formEditMode } from '../functionnalities/modal';
 
 export const TASKGRID = document.querySelector('.taskListGrid');
 export const ADDTASKBTN = document.querySelector('.addBtn');
@@ -37,7 +37,7 @@ const deleteButton = (()=> {
     }
 })() 
 
-const editButton = (()=> {
+export const editButton = (()=> {
     const create = ()=> {
         const editTask = document.createElement('img');
         editTask.classList.add('editTask');
@@ -48,32 +48,14 @@ const editButton = (()=> {
 
     const manageEditTask = (editBtn)=> {
         editBtn.addEventListener('click', (e)=> {
-            form.SUBMIT_CHANGES_BTN.disabled = false;
             const inputs = Array.from(e.target.parentElement.parentElement.children);
-            form.fillFormInputsWithCurrentValues(inputs);
-            modalContainer.openModal();
-            form.INPUTS.forEach(input => {
-                input.addEventListener('change', ()=> {
-                    if (!form.isOneInputInvalid()) {
-                        form.SUBMIT_CHANGES_BTN.disabled = false;
-                    }
-                    if (form.isOneInputInvalid()){
-                        form.SUBMIT_CHANGES_BTN.disabled = true;
-                    }
-                })
-            })
-            form.SUBMIT_CHANGES_BTN.addEventListener('click', ()=> {
-                if (!form.isOneInputInvalid()){
-                    let editedTask = new Task(...form.getInputsValues());
-                    console.log(e.target.parentElement.parentElement.getAttribute('data-index'));
-                    TaskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
-                    displayEditedTask(editedTask, inputs);
-                    manageModalReset();
-                }
-                form.SUBMIT_CHANGES_BTN.disabled = true;
+            formEditMode.open(inputs);
+            formEditMode.inputsValidation();
+            formEditMode.SUBMIT_CHANGES_BTN.addEventListener('click', ()=> {
+                    formEditMode.validateChanges(e, inputs);
             }, {once : true})
         })
-    }
+}
 
     const displayEditedTask = (editedTask, inputs)=> {
         for (const detail in editedTask){
@@ -85,7 +67,8 @@ const editButton = (()=> {
     }
 
     return {
-        create
+        create,
+        displayEditedTask
     }
 })() 
 
@@ -123,10 +106,9 @@ export const newTask = (()=> {
 
     const createTaskDetail = (detail, newTask)=> {
         const detailToDisplay = document.createElement('input');
+        detailToDisplay.readOnly = true;
         detailToDisplay.classList.add(detail);
         detailToDisplay.value = newTask[detail];
-        detailToDisplay.style.width = `${detailToDisplay.value.length}ch`;
-        
         return detailToDisplay;
     }
 

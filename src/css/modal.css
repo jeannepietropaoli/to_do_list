@@ -19,6 +19,7 @@
 }
 
 .modal {
+    position: relative;
     width: 600px;
     max-width: 100%;
     border: none;
@@ -30,4 +31,17 @@
 
 #closeModal {
     cursor: pointer;
+}
+
+#editMode {
+    position: absolute;
+    left: 20px;
+}
+
+#submit:disabled {
+    visibility: hidden;
+}
+
+#editMode:disabled {
+    visibility: hidden;
 }
