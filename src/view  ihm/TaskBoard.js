@@ -1,5 +1,6 @@
 import '../css/TaskBoard.css';
-import {TaskList} from '../functionnalities/Task';
+import {Task, TaskList} from '../functionnalities/Task';
+import { modalContainer, form, manageModalReset } from '../functionnalities/modal';
 
 export const TASKGRID = document.querySelector('.taskListGrid');
 export const ADDTASKBTN = document.querySelector('.addBtn');
@@ -45,25 +46,29 @@ const editButton = (()=> {
         return editTask;
     }
 
-    const trasnformInputsBorders = (inputs)=> {
-        inputs.forEach(input => {
-            input.style.borderColor = 'red';
-            input.style.cursor = 'pointer';
-        })
-    }
-
-    const changeInputValue = ()=> {
-        
-    }
-
     const manageEditTask = (editBtn)=> {
         editBtn.addEventListener('click', (e)=> {
-            console.log(e.target.parentElement.parentElement);
+            ajouter conftin chmps valides
             const inputs = Array.from(e.target.parentElement.parentElement.children);
-            console.log(inputs);
-            trasnformInputsBorders(inputs);
-            changeInputValue();
+            form.fillFormInputsWithCurrentValues(inputs);
+            modalContainer.openModal();
+            form.SUBMIT_CHANGES_BTN.addEventListener('click', ()=> {
+                let editedTask = new Task(...form.getInputsValues());
+                console.log(e.target.parentElement.parentElement.getAttribute('data-index'));
+                TaskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
+                displayEditedTask(editedTask, inputs);
+                manageModalReset();
+            }, {once : true})
         })
+    }
+
+    const displayEditedTask = (editedTask, inputs)=> {
+        for (const detail in editedTask){
+            let valueToUpdate = inputs.filter((element) => {
+                return element.className === `${detail}`;
+            })
+            valueToUpdate[0].value= editedTask[detail];
+        }
     }
 
     return {
@@ -108,7 +113,7 @@ export const newTask = (()=> {
         detailToDisplay.classList.add(detail);
         detailToDisplay.value = newTask[detail];
         detailToDisplay.style.width = `${detailToDisplay.value.length}ch`;
-        detailToDisplay.disabled = 'true';
+        
         return detailToDisplay;
     }
 

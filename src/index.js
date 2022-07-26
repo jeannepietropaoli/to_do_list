@@ -2,7 +2,7 @@ import './css/initPageLoad.css';
 import './css/modal.css';
 import {TaskList, Task} from './functionnalities/Task';
 import {newTask, taskOptions, ADDTASKBTN, fullTask} from './view  ihm/TaskBoard';
-import { modalContainer, form } from './functionnalities/modal';
+import { modalContainer, form, manageModalReset } from './functionnalities/modal';
 
 ADDTASKBTN.addEventListener('click', ()=> {modalContainer.openModal()});
 
@@ -12,15 +12,12 @@ function manageTaskCreation() {
     newTask.display();
 }
 
-function manageModalReset() {
-    modalContainer.closeModal();
-    form.clearInputsValues();
-}
-
 form.SUBMIT_BTN.addEventListener('click', ()=> {
     if (!form.isOneInputInvalid()){
-        manageTaskCreation();
-        manageModalReset();
+        if (form.SUBMIT_BTN.id === 'submit'){
+            manageTaskCreation();
+            manageModalReset();
+        }
     }
 })
 

@@ -56,10 +56,15 @@ export const TaskList = (()=> {
         list.splice(taskIndex , 1);
     }
 
+    const editTask = (taskIndex, editedTask) => {
+        list.splice(taskIndex, 1, editedTask);
+    }
+
     return {
         getList,
         addTask,
-        deleteTask
+        deleteTask, 
+        editTask
     }
 })()
 
