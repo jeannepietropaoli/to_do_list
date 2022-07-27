@@ -1,4 +1,6 @@
 export class Project {
+    taskList = [];
+
     constructor(title) {
         this._title = title;
     }
@@ -33,6 +35,8 @@ export const ProjectList = (()=> {
         deleteProject
     }
 })()
+
+
 
 
 
