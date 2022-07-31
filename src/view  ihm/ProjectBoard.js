@@ -1,5 +1,6 @@
 import { ProjectList } from "../functionnalities/Project";
 import { projectList } from '../functionnalities/Project';
+import { newTask, TaskBoard } from "./TaskBoard";
 
 export const addProjectBtn = document.querySelector('.addProject');
 export const projectNameInput = document.querySelector('#projectName');
@@ -31,6 +32,14 @@ export const ProjectBoard = (() => {
     const selectTheProject = (clickableSection)=> {
         clickableSection.addEventListener('click', (e)=> {
             ProjectList.currentProject = ProjectList.getList()[e.target.nextElementSibling.getAttribute('data-index')];
+            console.log(ProjectList.currentProject);
+            console.log(ProjectList.currentProject.taskList.getList())
+                TaskBoard.clearTasks();
+                ProjectList.currentProject.taskList.getList().forEach((task)=> {
+                    let i=0;
+                    newTask.displayEachTask(i);
+                    i++;
+                })
         })
     }
 

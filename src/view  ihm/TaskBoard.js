@@ -6,6 +6,20 @@ import { ProjectList } from '../functionnalities/Project';
 export const TASKGRID = document.querySelector('.taskListGrid');
 export const ADDTASKBTN = document.querySelector('.addBtn');
 
+export const TaskBoard = (()=> {
+    const clearTasks = ()=> {
+        const tasks = Array.from(document.querySelectorAll('.task'));
+        tasks.forEach(task => {
+            console.log(task)
+            task.remove();
+        })
+    }
+    
+    return {
+        clearTasks
+    }
+})()
+
 const deleteButton = (()=> {
     const create = ()=> {
         const deleteTask = document.createElement('img');
@@ -120,6 +134,16 @@ export const newTask = (()=> {
     return {
         display : ()=> {
             const newTask = getNewTask();
+            const taskContainer = createNewTaskContainer();
+            for (const detail in newTask){
+                const detailToDisplay = createTaskDetail(detail, newTask);
+                appendTaskDetail(taskContainer, detailToDisplay);
+            }
+            taskContainer.appendChild(taskOptions.optionsDivSetUp());
+        }
+        ,
+        displayEachTask : (i)=> {
+            const newTask = ProjectList.currentProject.taskList.getList()[i]
             const taskContainer = createNewTaskContainer();
             for (const detail in newTask){
                 const detailToDisplay = createTaskDetail(detail, newTask);
