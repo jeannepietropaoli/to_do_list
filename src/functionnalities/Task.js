@@ -39,7 +39,7 @@ export class Task {
     }
 }
 
-export const TaskList = (()=> {
+export const TaskList = ()=> {
     const list = [];
 
     const getList = ()=> {
@@ -64,7 +64,7 @@ export const TaskList = (()=> {
         deleteTask, 
         editTask
     }
-})()
+}
 
 
 

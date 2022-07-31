@@ -1,6 +1,7 @@
 import '../css/TaskBoard.css';
 import {Task, TaskList} from '../functionnalities/Task';
 import { modalContainer, form, manageModalReset, formEditMode } from '../functionnalities/modal';
+import { ProjectList } from '../functionnalities/Project';
 
 export const TASKGRID = document.querySelector('.taskListGrid');
 export const ADDTASKBTN = document.querySelector('.addBtn');
@@ -26,7 +27,7 @@ const deleteButton = (()=> {
 
     const manageDeleteTask = (deleteBtn)=> {
         deleteBtn.addEventListener('click', (e) => {
-            TaskList.deleteTask(e.target.parentElement.parentElement.getAttribute('data-index'));
+            ProjectList.currentProject.taskList.deleteTask(e.target.parentElement.parentElement.getAttribute('data-index'));
             TASKGRID.removeChild(e.target.parentElement.parentElement);
             updateDataIndex();
         })
@@ -92,14 +93,14 @@ export const taskOptions = (()=> {
 
 export const newTask = (()=> {
     const getNewTask = ()=> {
-        const list = TaskList.getList();
+        const list = ProjectList.currentProject.taskList.getList();
         return list[list.length-1];
     }
 
     const createNewTaskContainer = ()=> {
         const taskContainer = document.createElement('div');
         taskContainer.classList.add('task');
-        taskContainer.setAttribute('data-index', TaskList.getList().length-1);
+        taskContainer.setAttribute('data-index', ProjectList.currentProject.taskList.getList().length-1);
         TASKGRID.appendChild(taskContainer);
         return taskContainer;
     }

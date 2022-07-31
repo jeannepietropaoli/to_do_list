@@ -1,8 +1,11 @@
+import { TaskList } from "./Task";
+import { ProjectBoard } from "../view  ihm/ProjectBoard";
+
 export class Project {
-    taskList = [];
 
     constructor(title) {
         this._title = title;
+        this._taskList = TaskList();
     }
     
     get title() {
@@ -12,9 +15,16 @@ export class Project {
     set title(value) {
         this._title = value;
     }
+
+    get taskList() {
+        return this._taskList;
+    }
 }
 
 export const ProjectList = (()=> {
+
+    let currentProject;
+
     const list = [];
 
     const getList = ()=> {
@@ -30,12 +40,21 @@ export const ProjectList = (()=> {
     }
 
     return {
+        currentProject,
         getList,
         addProject,
         deleteProject
     }
 })()
 
+export const firstProject = (title)=> {
+    const project = new Project(title);
+    ProjectList.addProject(project);
+    ProjectBoard.displayNewProject(project.title);
+    return project
+}
+
+ProjectList.currentProject = firstProject('helllooo');
 
 
 

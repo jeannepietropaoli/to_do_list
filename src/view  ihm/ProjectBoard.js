@@ -1,4 +1,5 @@
 import { ProjectList } from "../functionnalities/Project";
+import { projectList } from '../functionnalities/Project';
 
 export const addProjectBtn = document.querySelector('.addProject');
 export const projectNameInput = document.querySelector('#projectName');
@@ -16,6 +17,7 @@ export const ProjectBoard = (() => {
         const newProjectTitle = document.createElement('h4');
         newProjectTitle.textContent = projectName;
         newProjectContainer.appendChild(newProjectTitle);
+        selectTheProject(newProjectTitle);
     }
 
     const displayNewProjectDeleteBtn = (newProjectContainer) => {
@@ -24,6 +26,12 @@ export const ProjectBoard = (() => {
         newProjectDeleteBtn.setAttribute('data-index', ProjectList.getList().length-1); 
         newProjectContainer.appendChild(newProjectDeleteBtn);
         return newProjectDeleteBtn;
+    }
+
+    const selectTheProject = (clickableSection)=> {
+        clickableSection.addEventListener('click', (e)=> {
+            ProjectList.currentProject = ProjectList.getList()[e.target.nextElementSibling.getAttribute('data-index')];
+        })
     }
 
     const updateDataIndex = ()=> {

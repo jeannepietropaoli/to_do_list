@@ -1,5 +1,6 @@
 import {Task, TaskList} from '../functionnalities/Task';
 import { editButton } from '../view  ihm/TaskBoard';
+import { ProjectList } from '../functionnalities/Project';
 
 export const modalContainer = (()=> {
     const MODAL_CONTAINER = document.querySelector('.modalContainer');
@@ -77,7 +78,7 @@ export const formEditMode = (()=> {
 
     const validateChanges = (e, inputs)=> {
             let editedTask = new Task(...form.getInputsValues());
-            TaskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
+            ProjectList.currentProject.taskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
             editButton.displayEditedTask(editedTask, inputs);
             manageModalReset();
             form.SUBMIT_BTN.disabled = false;
