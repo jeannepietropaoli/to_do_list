@@ -42,6 +42,101 @@
     visibility: hidden;
 }
 
+#submit,
+#editMode {
+    border: 2px solid #1CFF70;
+    color: #1CFF70;
+    font-weight: 900;
+    background-color: white;
+    padding: 8px 25px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 3px lightgray;
+    cursor: pointer;
+    position: relative;
+    bottom: 0px;
+    transition: bottom 0.1s;
+}
+
+#submit:hover,
+#editMode:hover {
+    bottom: 5px;
+    background-color: #1CFF70;
+    border-color: transparent;
+    color: white;
+}
+
 #editMode:disabled {
     visibility: hidden;
+}
+
+.formField {
+    display: flex;
+    gap: 10px;
+}
+
+.formFields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formField label {
+    width: 100px;
+}
+
+.formField input:hover {
+    border-color: #1CFF70;
+}
+
+form button {
+    margin-top: 15px;
+}
+
+.formField input:focus {
+    outline-color: #1CFF70;
+}
+
+.formField input[required] + span{
+    position: relative;
+    display: inline;
+}
+
+.formField input[required] + span::before {
+    content: 'required';
+    font-size: clamp(7px, 0.9vw, 11px);
+    padding: 0.1vw;
+    color: #333333;
+    background-color: #1CFF70;
+    position: absolute;
+    top: -1.5em;
+    right: 1.2em;
+    padding: 1px 8px;
+}
+
+input[required]:invalid:placeholder-shown + span::after {
+    visibility: hidden;
+}
+
+input[required]:invalid:not(:placeholder-shown) + span::after {
+    content: 'x';
+    font-size: clamp(7px, 0.9vw, 11px);
+    color: red;
+    position: absolute;
+    top: 5px;
+    right: 3px;
+    visibility: visible;
+}
+
+input[required]:valid + span::after {
+    content: ' 🗸';
+    font-size: clamp(7px, 0.9vw, 11px);
+    color: green;
+    position: absolute;
+    top: 5px;
+    right: 3px;
+}
+
+#closeModal {
+    display: inline-block;
+    width: min-content;
 }

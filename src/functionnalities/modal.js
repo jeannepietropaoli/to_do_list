@@ -18,11 +18,23 @@ export const modalContainer = (()=> {
     }
 })()
 
-modalContainer.closeModalBtn.addEventListener('click', ()=> {modalContainer.closeModal()});
+modalContainer.closeModalBtn.addEventListener('click', ()=> {
+    modalContainer.closeModal();
+    form.clearInputsValues();
+});
 
 export const form = (()=> {
     const INPUTS = Array.from(document.querySelectorAll('.modal input[id]'));
     const SUBMIT_BTN = document.querySelector('#submit');
+    const REQUIRED_INPUTS = Array.from(document.querySelectorAll('input[required]'));
+
+    const removePlaceholderAfterInputUse = (()=> {
+        REQUIRED_INPUTS.forEach(requiredInput => {
+            requiredInput.addEventListener('click', ()=> {
+                requiredInput.removeAttribute('placeholder');
+            })
+        })
+    })()
 
     const getInputsValues = ()=> {
         return  INPUTS.map(input => {
@@ -37,6 +49,9 @@ export const form = (()=> {
 
     const clearInputsValues = ()=> {
         INPUTS.forEach(input => input.value = '');
+        REQUIRED_INPUTS.forEach(requiredInput => {
+            requiredInput.setAttribute('placeholder', ' ')
+        })
     }
 
     return {
@@ -98,6 +113,7 @@ export function manageModalReset() {
     modalContainer.closeModal();
     form.clearInputsValues();
 }
+
 
 
 

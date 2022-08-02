@@ -54,7 +54,8 @@ export const firstProject = (title)=> {
     return project
 }
 
-ProjectList.currentProject = firstProject('helllooo');
+ProjectList.currentProject = firstProject('First Project - Start here');
+ProjectBoard.highlightCurrentProject(ProjectBoard.selectProjectBoardCurrentProject());
 
 
 

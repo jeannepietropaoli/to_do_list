@@ -1,0 +1,75 @@
+
+
+#projectName {
+    background-color: transparent;
+    border-width: 0px;
+    border-bottom: 2px solid #1CFF70;
+    color: white;
+    flex-grow: 1;
+}
+
+.addProject {
+    width: 30px;
+    height: 30px;
+   border-radius: 50%;
+   border: none;
+   background-color: #1CFF70;
+   color: white;
+   font-weight: 900;
+   cursor: pointer;
+   position: relative;
+}
+
+.addProject:hover{
+    transform: rotate(-180deg);
+    transition: 0.5s;
+    bottom: 2px;
+    
+}
+
+.addProject img {
+    width: 55%;
+    height: auto;
+    position: absolute;
+    top: 50%; right: 50%;
+    transform: translate(50%,-50%);
+}
+
+.addProjectContainer {
+    display: flex;
+    gap: 10px;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    padding: 8px 15px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+}
+
+li h4 {
+    flex-grow: 1;
+    margin: 0;
+}
+
+.projectSection li:hover {
+    cursor: pointer;
+    border: 1px solid #1CFF70;
+
+}
+
+li img {
+    height: 22px;
+    width: auto;
+}
+
+#projectList {
+    padding: 0px;
+}
+
+.projectSection {
+
+}

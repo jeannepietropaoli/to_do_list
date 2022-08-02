@@ -1,5 +1,6 @@
 import './css/initPageLoad.css';
 import './css/modal.css';
+import './css/projectBoard.css';
 import {TaskList, Task} from './functionnalities/Task';
 import {newTask, taskOptions, ADDTASKBTN, fullTask} from './view  ihm/TaskBoard';
 import { modalContainer, form, manageModalReset, formEditMode } from './functionnalities/modal';
@@ -25,12 +26,11 @@ form.SUBMIT_BTN.addEventListener('click', ()=> {
 
 
 addProjectBtn.addEventListener('click', ()=> {
-    console.log(ProjectList.getList())
     if (projectNameInput.value !== ''){
         const brandNewProject = new Project(projectNameInput.value);
         ProjectList.addProject(brandNewProject);
         ProjectBoard.displayNewProject(brandNewProject.title);
-        console.log(ProjectList.getList())
+        ProjectBoard.clearProjectNameInput();
     }
 })
 

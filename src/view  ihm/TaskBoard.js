@@ -14,9 +14,15 @@ export const TaskBoard = (()=> {
             task.remove();
         })
     }
+
+    const displayProjectTitle = (title)=> {
+        const taskBoardProjectTitle = document.querySelector('#taskBoardProjectTitle');
+        taskBoardProjectTitle.textContent += ` for : ${title}`;
+    }
     
     return {
-        clearTasks
+        clearTasks,
+        displayProjectTitle
     }
 })()
 
@@ -26,6 +32,7 @@ const deleteButton = (()=> {
         deleteTask.classList.add('deleteTask');
         deleteTask.setAttribute('src', '../src/delete.svg');
         manageDeleteTask(deleteTask);
+        changeUrlOnHover(deleteTask)
         return deleteTask;
     }
 
@@ -46,6 +53,15 @@ const deleteButton = (()=> {
             updateDataIndex();
         })
     }
+
+    const changeUrlOnHover = (deleteBtn) => {
+        deleteBtn.addEventListener('mouseover', ()=> {
+            deleteBtn.setAttribute('src', '../src/deleteHover.png')
+        })
+        deleteBtn.addEventListener('mouseout', ()=> {
+            deleteBtn.setAttribute('src', '../src/delete.svg')
+        })
+    }
     
     return {
         create
@@ -58,6 +74,7 @@ export const editButton = (()=> {
         editTask.classList.add('editTask');
         editTask.setAttribute('src', '../src/edit.svg');
         manageEditTask(editTask);
+        changeUrlOnHover(editTask)
         return editTask;
     }
 
@@ -79,6 +96,15 @@ export const editButton = (()=> {
             })
             valueToUpdate[0].value= editedTask[detail];
         }
+    }
+
+    const changeUrlOnHover = (editBtn) => {
+        editBtn.addEventListener('mouseover', ()=> {
+            editBtn.setAttribute('src', '../src/editHover.png')
+        })
+        editBtn.addEventListener('mouseout', ()=> {
+            editBtn.setAttribute('src', '../src/edit.svg')
+        })
     }
 
     return {

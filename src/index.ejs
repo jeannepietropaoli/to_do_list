@@ -13,22 +13,20 @@
     </div>
     <div class="sidebar">
         <div class="logoContainer">
-            <img id="taskImg" src="../src/task.png" alt="task logo">
+            <img id="taskImg" src="../src/taskGreen.png" alt="task logo">
             <h3 id="logoText">TASKSS</h3>
         </div>
-        <div>
-            <input type="text" name="" id="projectName">
-            <button class="addProject">Add a project</button>
+        <div class="addProjectContainer">
+            <input type="text" name="" placeholder="Your new project ..." id="projectName">
+            <button class="addProject"><img src="../src/plus.png" alt=""></button>
         </div>
         <div class="projectSection">
-            <h2>Projects</h2>
             <ul id="projectList">
-                <li>Start Here</li>
             </ul>
         </div>
     </div>
     <main>
-        <h3>Task Board</h3>
+        <h3 id="taskBoardProjectTitle">TASK BOARD</h3>
         <div class="taskListGrid">
             <div class="taskListHeaders">
                 <h4 class="_title">Title</h4>
@@ -48,24 +46,27 @@
 
             <h2>Enter your task's details</h2>
 
-            <div class="formField">
-                <label for="title">Task title</label>
-                <input type="text" id="title" required>
-            </div>
-
-            <div class="formField">
-                <label for="description">Description</label>
-                <input type="text" id="description" required>
-            </div>
-
-            <div class="formField">
-                <label for="date">Task due date</label>
-                <input type="text" id="dueDate" required>
-            </div>
-
-            <div class="formField">
-                <label for="category">Task category</label>
-                <input type="text" id="category" required>
+            <div class="formFields">
+                <div class="formField">
+                    <label for="title">Task title :</label>
+                    <input type="text" id="title" placeholder=" " required>
+                    <span></span>
+                </div>
+                <div class="formField">
+                    <label for="description">Description :</label>
+                    <input type="text" id="description" placeholder=" " required>
+                    <span></span>
+                </div>
+                <div class="formField">
+                    <label for="date">Task due date :</label>
+                    <input type="text" id="dueDate" placeholder=" " required>
+                    <span></span>
+                </div>
+                <div class="formField">
+                    <label for="category">Task category :</label>
+                    <input type="text" id="category" placeholder=" " required>
+                    <span></span>
+                </div>
             </div>
 
             <button type="button" id="submit">Add to the list</button>

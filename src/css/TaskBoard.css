@@ -63,3 +63,7 @@
     width: auto;
 }
 
+.options img:hover {
+    cursor: pointer;
+}
+

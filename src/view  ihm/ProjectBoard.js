@@ -8,6 +8,10 @@ export const projectNameInput = document.querySelector('#projectName');
 export const ProjectBoard = (() => {
     const projectList = document.querySelector('#projectList');
 
+    const clearProjectNameInput = ()=> {
+        projectNameInput.value = '';
+    }
+
     const createNewProjectContainer = ()=> {
         const newProjectContainer = document.createElement('li');
         projectList.appendChild(newProjectContainer);
@@ -22,8 +26,8 @@ export const ProjectBoard = (() => {
     }
 
     const displayNewProjectDeleteBtn = (newProjectContainer) => {
-        const newProjectDeleteBtn = document.createElement('h4');
-        newProjectDeleteBtn.textContent = 'x';
+        const newProjectDeleteBtn = document.createElement('img');
+        newProjectDeleteBtn.setAttribute('src', '../src/deleteProject.png');
         newProjectDeleteBtn.setAttribute('data-index', ProjectList.getList().length-1); 
         newProjectContainer.appendChild(newProjectDeleteBtn);
         return newProjectDeleteBtn;
@@ -31,20 +35,23 @@ export const ProjectBoard = (() => {
 
     const selectTheProject = (clickableSection)=> {
         clickableSection.addEventListener('click', (e)=> {
+            if (ProjectList.getList().includes(ProjectList.currentProject)) {
+                removeHighlight(selectProjectBoardCurrentProject());
+            }
             ProjectList.currentProject = ProjectList.getList()[e.target.nextElementSibling.getAttribute('data-index')];
-            console.log(ProjectList.currentProject);
-            console.log(ProjectList.currentProject.taskList.getList())
-                TaskBoard.clearTasks();
-                ProjectList.currentProject.taskList.getList().forEach((task)=> {
-                    let i=0;
-                    newTask.displayEachTask(i);
-                    i++;
+            TaskBoard.clearTasks();
+            highlightCurrentProject(selectProjectBoardCurrentProject());
+            TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
+            ProjectList.currentProject.taskList.getList().forEach((task)=> {
+                let i=0;
+                newTask.displayEachTask(i);
+                i++;
                 })
         })
     }
 
     const updateDataIndex = ()=> {
-        const deletBtns = Array.from(document.querySelectorAll('h4[data-index]'));
+        const deletBtns = Array.from(document.querySelectorAll('img[data-index]'));
         console.log(deletBtns)
         if (deletBtns.length>0){
             deletBtns[0].setAttribute('data-index', 0);
@@ -56,8 +63,13 @@ export const ProjectBoard = (() => {
 
     const activateDeleteBtn = (deleteBtn) => {
         deleteBtn.addEventListener('click', (e)=> {
+            if (ProjectList.currentProject === ProjectList.getList()[e.target.getAttribute('data-index')]){
+                TaskBoard.clearTasks();
+            }
             ProjectList.deleteProject(e.target.getAttribute('data-index'));
-            projectList.removeChild(e.target.parentElement)
+            projectList.removeChild(e.target.parentElement);
+            updateDataIndex();
+            
         })
     }
 
@@ -69,7 +81,23 @@ export const ProjectBoard = (() => {
         updateDataIndex();
     }
 
+    const highlightCurrentProject = (projectBoardCurrentProject) => {
+        projectBoardCurrentProject.style.backgroundColor = 'rgba(255,255,255, 0.3)';
+    }
+
+    const removeHighlight = (projectBoardCurrentProject) => {
+        projectBoardCurrentProject.style.backgroundColor = 'transparent';
+    }
+
+    const selectProjectBoardCurrentProject = ()=> {
+        const currentProjectIndex = ProjectList.getList().indexOf(ProjectList.currentProject).toString();
+        return document.querySelector(`img[data-index = '${currentProjectIndex}']`).parentElement;
+    }
+
     return {
-        displayNewProject
+        displayNewProject,
+        clearProjectNameInput,
+        highlightCurrentProject,
+        selectProjectBoardCurrentProject
     }
 })()
