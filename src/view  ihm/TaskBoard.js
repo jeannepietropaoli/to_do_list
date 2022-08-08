@@ -134,6 +134,16 @@ export const taskOptions = (()=> {
     }
 })()
 
+const taskPriority = (()=> {
+    const createPriorityDiv = (task)=> {
+        const priorityFlag = document.createElement('img');
+        priorityFlag.setAttribute('src', `../src/flag_${task.priority}.png`);
+        priorityFlag.classList.add('priorityFlag')
+        return priorityFlag;
+    }
+    return {createPriorityDiv}
+})()
+
 export const newTask = (()=> {
     const getNewTask = ()=> {
         const list = ProjectList.currentProject.taskList.getList();
@@ -163,12 +173,13 @@ export const newTask = (()=> {
     return {
         display : ()=> {
             const newTask = getNewTask();
-            console.log(newTask)
+            console.log(newTask);
             const taskContainer = createNewTaskContainer();
             for (const detail in newTask){
                 const detailToDisplay = createTaskDetail(detail, newTask);
                 appendTaskDetail(taskContainer, detailToDisplay);
             }
+            taskContainer.appendChild(taskPriority.createPriorityDiv(newTask));
             taskContainer.appendChild(taskOptions.optionsDivSetUp());
         }
         ,

@@ -17,7 +17,9 @@
 }
 
 .taskListHeaders h4,
-.task input {
+.task input,
+.options,
+.priorityFlag {
     padding: 5px 15px;
 }
 
@@ -40,7 +42,7 @@
     width: 100%;
     min-width: max-content;
     display: grid;
-    grid-template-columns: 20% 35% 10% 15% 10% 1fr;
+    grid-template-columns: 18% 25% 10% 15% 10% 11% 1fr;
     justify-content: stretch;
     align-items: center;
 }
@@ -75,6 +77,30 @@
 .addBtn:hover {
     cursor: pointer;
 }
+
+.addBtn::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    height: 100%;
+    width : 100%;
+	border-radius: 6px;
+    background: #1CFF70;
+    background-size: 600% 600%;
+}
+
+.addBtn::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 3px;
+    top: 3px;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    background: white;
+    border-radius: 5px;
+}
+
 	
 .addBtn:hover::before {
     content: '';
@@ -83,7 +109,7 @@
     height: 100%;
     width : 100%;
 	border-radius: 6px;
-    background: linear-gradient(45deg, #08c875, #15bb23, #10e8a7, #bde810);
+    background: linear-gradient(45deg, #10e8a7, #bde810, #08c875);
     background-size: 600% 600%;
     animation: animate 4s ease infinite;
 }
@@ -107,5 +133,41 @@
 
 .options img:hover {
     cursor: pointer;
+}
+
+.priorityFlag {
+    height: 30px;
+    width: auto;
+}
+
+.taskBoardHeader {
+    display: flex;
+    justify-content: space-between ;
+}
+
+.flagsChart {
+    display: flex;
+    gap: 10px;
+    font-size: 10px;
+    background-color: white;
+    align-items: center;
+    height: fit-content;
+    padding: 5px;
+    
+}
+
+.flagsChart > div {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.flagsChart img {
+    height: 20px;
+    width: auto;
+}
+
+.flagsChart p {
+    margin: 0;
 }
 

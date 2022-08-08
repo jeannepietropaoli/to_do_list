@@ -53,13 +53,13 @@ export class Task {
     get priority() {
         let today = new Date();
         if (isSameDay(this.dueDate, today)) {
-            return 'due today';
+            return 'dueToday';
         }
         if (isAfter(today, this.dueDate)) {
             return 'late';
         }
         if (isBefore(today, this.dueDate)) {
-            return 'on time';
+            return 'onTime';
         }
     }
 }
