@@ -20,7 +20,7 @@
 
 .modal {
     position: relative;
-    width: 600px;
+    width: 500px;
     max-width: 100%;
     border: none;
     border-radius: 8px;
@@ -84,6 +84,12 @@
     width: 100px;
 }
 
+.formField input,
+.formField select {
+    box-sizing: border-box;
+    width: 220px;
+}
+
 .formField input:hover {
     border-color: #1CFF70;
 }
@@ -103,7 +109,7 @@ form button {
 
 .formField input[required] + span::before {
     content: 'required';
-    font-size: clamp(7px, 0.9vw, 11px);
+    font-size: 9px;
     padding: 0.1vw;
     color: #333333;
     background-color: #1CFF70;
@@ -119,21 +125,21 @@ input[required]:invalid:placeholder-shown + span::after {
 
 input[required]:invalid:not(:placeholder-shown) + span::after {
     content: 'x';
-    font-size: clamp(7px, 0.9vw, 11px);
+    font-size: 11px;
     color: red;
     position: absolute;
-    top: 5px;
-    right: 3px;
+    top: 2px;
+    right: -2px;
     visibility: visible;
 }
 
 input[required]:valid + span::after {
     content: ' 🗸';
-    font-size: clamp(7px, 0.9vw, 11px);
+    font-size: 11px;
     color: green;
     position: absolute;
-    top: 5px;
-    right: 3px;
+    top: 2px;
+    right: -2px;
 }
 
 #closeModal {

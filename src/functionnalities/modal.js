@@ -36,15 +36,21 @@ export const form = (()=> {
         })
     })()
 
-    const getInputsValues = ()=> {
+    const addStateValue = ()=> {
+        INPUTS.push(document.querySelector('.modal select'));
+    }
+
+    const getTaskDetailsValues = ()=> {
+        addStateValue();
         return  INPUTS.map(input => {
             return input.value;
         })
     }
 
     const isOneInputInvalid = ()=> {
-        const inputsValues = getInputsValues();
-        return inputsValues.includes('');
+        return INPUTS.some(input => {
+            return input == '';
+        })
     }
 
     const clearInputsValues = ()=> {
@@ -54,12 +60,26 @@ export const form = (()=> {
         })
     }
 
+    const filterInvalidInputs = () => {
+        const invalidInputs = INPUTS.filter(input => {
+            return input.value == ''
+        })
+        return invalidInputs
+    }
+
+    const errorDisplay = () => {
+        filterInvalidInputs().forEach(invalidInput => {
+            invalidInput.setAttribute('placeholder', 'enter a valid value');
+        })
+    }
+
     return {
         INPUTS,
-        getInputsValues,
+        getTaskDetailsValues,
         isOneInputInvalid,
         clearInputsValues,
-        SUBMIT_BTN
+        SUBMIT_BTN,
+        errorDisplay
     }
 })()
 
@@ -92,7 +112,7 @@ export const formEditMode = (()=> {
     }
 
     const validateChanges = (e, inputs)=> {
-            let editedTask = new Task(...form.getInputsValues());
+            let editedTask = new Task(...form.getTaskDetailsValues());
             ProjectList.currentProject.taskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
             editButton.displayEditedTask(editedTask, inputs);
             manageModalReset();

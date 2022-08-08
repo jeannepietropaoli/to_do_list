@@ -26,17 +26,20 @@
         </div>
     </div>
     <main>
-        <h3 id="taskBoardProjectTitle">TASK BOARD</h3>
+        <h3 id="taskBoardProjectTitle">TaskBoard ~ Selected project : </h3>
         <div class="taskListGrid">
             <div class="taskListHeaders">
                 <h4 class="_title">Title</h4>
                 <h4 class="_description">Description</h4>
                 <h4 class="_dueDate">Due date</h4>
                 <h4 class="_category">Category</h4>
+                <h4 class="state">State</h4>
                 <h4>Options</h4>
             </div>
-
-            <div class="addBtn">Add a task</div>
+            
+           
+                <div class="addBtn">Add a task</div>
+           
         </div>
     </main>
 
@@ -59,7 +62,7 @@
                 </div>
                 <div class="formField">
                     <label for="date">Task due date :</label>
-                    <input type="text" id="dueDate" placeholder=" " required>
+                    <input type="date" id="dueDate" placeholder=" " required>
                     <span></span>
                 </div>
                 <div class="formField">
@@ -67,6 +70,14 @@
                     <input type="text" id="category" placeholder=" " required>
                     <span></span>
                 </div>
+                <div class="formField">
+                <label for="state">Task state :</label>
+                <select name="state" id="state">
+                    <option value="to-do">to-do</option>
+                    <option value="in progress">in progress</option>
+                    <option value="done">done</option>
+                </select>
+            </div>
             </div>
 
             <button type="button" id="submit">Add to the list</button>

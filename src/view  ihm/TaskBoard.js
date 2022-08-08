@@ -10,15 +10,18 @@ export const TaskBoard = (()=> {
     const clearTasks = ()=> {
         const tasks = Array.from(document.querySelectorAll('.task'));
         tasks.forEach(task => {
-            console.log(task)
             task.remove();
         })
     }
 
     const displayProjectTitle = (title)=> {
         const taskBoardProjectTitle = document.querySelector('#taskBoardProjectTitle');
-        taskBoardProjectTitle.textContent += ` for : ${title}`;
+        taskBoardProjectTitle.textContent = `TaskBoard ~ Selected project : ${title}`;
     }
+
+    const displayFirstProjectTitle = (() => {
+        displayProjectTitle(ProjectList.currentProject.title);
+    })()
     
     return {
         clearTasks,
@@ -160,6 +163,7 @@ export const newTask = (()=> {
     return {
         display : ()=> {
             const newTask = getNewTask();
+            console.log(newTask)
             const taskContainer = createNewTaskContainer();
             for (const detail in newTask){
                 const detailToDisplay = createTaskDetail(detail, newTask);

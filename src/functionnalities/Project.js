@@ -1,5 +1,6 @@
 import { TaskList } from "./Task";
 import { ProjectBoard } from "../view  ihm/ProjectBoard";
+import { TaskBoard } from "../view  ihm/TaskBoard";
 
 export class Project {
 
@@ -51,6 +52,7 @@ export const firstProject = (title)=> {
     const project = new Project(title);
     ProjectList.addProject(project);
     ProjectBoard.displayNewProject(project.title);
+    /* TaskBoard.displayProjectTitle(project.title) */
     return project
 }
 

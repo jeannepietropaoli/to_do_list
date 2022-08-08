@@ -10,7 +10,9 @@ import { Project, ProjectList, firstProject } from './functionnalities/Project';
 ADDTASKBTN.addEventListener('click', ()=> {modalContainer.openModal()});
 
 function manageTaskCreation() {
-    const brandNewTask = new Task(...form.getInputsValues());
+    const brandNewTask = new Task(...form.getTaskDetailsValues());
+    console.log(brandNewTask);
+    console.log(brandNewTask.priority);
     ProjectList.currentProject.taskList.addTask(brandNewTask);
     newTask.display();
 }
@@ -21,6 +23,9 @@ form.SUBMIT_BTN.addEventListener('click', ()=> {
             manageTaskCreation();
             manageModalReset();
         }
+    }
+    else {
+        form.errorDisplay()
     }
 })
 

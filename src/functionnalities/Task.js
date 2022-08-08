@@ -1,9 +1,13 @@
+import { isAfter, isBefore, isSameDay, parseISO, addDays } from "date-fns"
+
 export class Task {
-    constructor(title, description, dueDate, category) {
+
+    constructor(title, description, dueDate, category, state) {
         this._title = title;
         this._description = description;
         this._dueDate = dueDate;
         this._category = category;
+        this._state = state;
     }
     
     get title() {
@@ -23,7 +27,7 @@ export class Task {
     }
 
     get dueDate() {
-        return this._dueDate
+        return parseISO(this._dueDate);
     }
 
     set dueDate(value) {
@@ -36,6 +40,27 @@ export class Task {
 
     set category(value) {
         this._category = value;
+    }
+
+    get state() {
+        return this._state;
+    }
+
+    set state(value) {
+        this._state = value;
+    }
+
+    get priority() {
+        let today = new Date();
+        if (isSameDay(this.dueDate, today)) {
+            return 'due today';
+        }
+        if (isAfter(today, this.dueDate)) {
+            return 'late';
+        }
+        if (isBefore(today, this.dueDate)) {
+            return 'on time';
+        }
     }
 }
 
