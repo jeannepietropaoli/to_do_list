@@ -84,21 +84,33 @@ export const editButton = (()=> {
     const manageEditTask = (editBtn)=> {
         editBtn.addEventListener('click', (e)=> {
             const inputs = Array.from(e.target.parentElement.parentElement.children);
+            const flag = inputs.filter(element => {
+               return element.classList.contains('priorityFlag');
+            });
+            const stateColorPoint = inputs.filter(element => {
+                return element.classList.contains('stateColorPoint');
+            });
             formEditMode.open(inputs);
             formEditMode.inputsValidation();
             formEditMode.SUBMIT_CHANGES_BTN.addEventListener('click', ()=> {
-                    formEditMode.validateChanges(e, inputs);
+                    formEditMode.validateChanges(e, inputs, stateColorPoint[0] , flag[0]);
             }, {once : true})
         })
 }
 
-    const displayEditedTask = (editedTask, inputs)=> {
+    const displayEditedTask = (editedTask, inputs, stateColorPoint, priorityFlag)=> {
         for (const detail in editedTask){
             let valueToUpdate = inputs.filter((element) => {
                 return element.className === `${detail}`;
             })
             valueToUpdate[0].value= editedTask[detail];
         }
+
+        stateColorPoint.setAttribute('src', `../src/${editedTask.state}.png`);
+        priorityFlag.setAttribute('src', `../src/flag_${editedTask.priority}.png`);
+        /* taskState.editColor(editedTask); */
+        /* taskPriority.editColor(editedTask); */
+       /*  taskState.checkIfDone(editedTask); */
     }
 
     const changeUrlOnHover = (editBtn) => {
@@ -134,15 +146,46 @@ export const taskOptions = (()=> {
     }
 })()
 
-const taskPriority = (()=> {
+const taskState = (task)=> {
+    const stateColorPoint = document.createElement('img');
+
+    const createStateColorPoint = (task)=> {
+        stateColorPoint.classList.add('stateColorPoint');
+        stateColorPoint.setAttribute('src', `../src/${task.state}.png`);
+        return stateColorPoint;
+    }
+
+    const editColor = (task)=> {
+        stateColorPoint.setAttribute('src', `../src/${task.state}.png`)
+    }
+
+    const checkIfDone = (task)=> {
+        return task.state === 'done';
+    }
+    return {
+        createStateColorPoint,
+        editColor, 
+        checkIfDone
+    }
+}
+
+const taskPriority = ()=> {
+    const priorityFlag = document.createElement('img');
+
     const createPriorityDiv = (task)=> {
-        const priorityFlag = document.createElement('img');
         priorityFlag.setAttribute('src', `../src/flag_${task.priority}.png`);
-        priorityFlag.classList.add('priorityFlag')
+        priorityFlag.classList.add('priorityFlag');
         return priorityFlag;
     }
-    return {createPriorityDiv}
-})()
+
+    const editColor = (task)=> {
+        priorityFlag.setAttribute('src', `../src/flag_${task.priority}.png`);
+    }
+    return {
+        createPriorityDiv,
+        editColor
+    }
+}
 
 export const newTask = (()=> {
     const getNewTask = ()=> {
@@ -173,14 +216,19 @@ export const newTask = (()=> {
     return {
         display : ()=> {
             const newTask = getNewTask();
-            console.log(newTask);
             const taskContainer = createNewTaskContainer();
             for (const detail in newTask){
                 const detailToDisplay = createTaskDetail(detail, newTask);
                 appendTaskDetail(taskContainer, detailToDisplay);
             }
-            taskContainer.appendChild(taskPriority.createPriorityDiv(newTask));
+            const flag = taskPriority();
+            taskContainer.appendChild(flag.createPriorityDiv(newTask));
             taskContainer.appendChild(taskOptions.optionsDivSetUp());
+            const stateColorPoint = taskState(); 
+            taskContainer.appendChild(stateColorPoint.createStateColorPoint(newTask));
+            if (stateColorPoint.checkIfDone(newTask)) {
+                taskContainer.style.opacity = 0.7;
+            };
         }
         ,
         displayEachTask : (i)=> {
@@ -190,7 +238,14 @@ export const newTask = (()=> {
                 const detailToDisplay = createTaskDetail(detail, newTask);
                 appendTaskDetail(taskContainer, detailToDisplay);
             }
+            const flag = taskPriority();
+            taskContainer.appendChild(flag.createPriorityDiv(newTask));
             taskContainer.appendChild(taskOptions.optionsDivSetUp());
+            const stateColorPoint = taskState(); 
+            taskContainer.appendChild(stateColorPoint.createStateColorPoint(newTask));
+            if (stateColorPoint.checkIfDone(newTask)) {
+                taskContainer.style.opacity = 0.7;
+            };
         }
     }
 })()

@@ -42,10 +42,10 @@ export const ProjectBoard = (() => {
             TaskBoard.clearTasks();
             highlightCurrentProject(selectProjectBoardCurrentProject());
             TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
+            let i=0;
             ProjectList.currentProject.taskList.getList().forEach((task)=> {
-                let i=0;
                 newTask.displayEachTask(i);
-                i++;
+                i = i+1;
                 })
         })
     }

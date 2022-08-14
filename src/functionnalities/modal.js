@@ -111,10 +111,10 @@ export const formEditMode = (()=> {
         }) 
     }
 
-    const validateChanges = (e, inputs)=> {
+    const validateChanges = (e, inputs, stateColorPoint, flag)=> {
             let editedTask = new Task(...form.getTaskDetailsValues());
             ProjectList.currentProject.taskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
-            editButton.displayEditedTask(editedTask, inputs);
+            editButton.displayEditedTask(editedTask, inputs, stateColorPoint, flag);
             manageModalReset();
             form.SUBMIT_BTN.disabled = false;
             SUBMIT_CHANGES_BTN.disabled = true;
