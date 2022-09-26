@@ -48,9 +48,9 @@ export const form = (()=> {
         })
     }
 
-    const isOneInputInvalid = ()=> {
-        return INPUTS.some(input => {
-            return input.value == '';
+    const isEveryInputInvalid = ()=> {
+        return INPUTS.every(input => {
+            return input.value !== '';
         })
     }
 
@@ -77,7 +77,7 @@ export const form = (()=> {
     return {
         INPUTS,
         getTaskDetailsValues,
-        isOneInputInvalid,
+        isEveryInputInvalid,
         clearInputsValues,
         SUBMIT_BTN,
         errorDisplay
@@ -97,7 +97,7 @@ export const formEditMode = (()=> {
     const inputsValidation = () => {
         form.INPUTS.forEach(input => {
             input.addEventListener('change', ()=> {
-                (!form.isOneInputInvalid()) ? SUBMIT_CHANGES_BTN.disabled = false : 
+                (form.isEveryInputInvalid()) ? SUBMIT_CHANGES_BTN.disabled = false : 
                     SUBMIT_CHANGES_BTN.disabled = true;
                 })
             })
@@ -110,15 +110,15 @@ export const formEditMode = (()=> {
                 currentValue = currentValues.filter((element)=> { 
                     return element.className === 'stateContainer';
                 }) 
-                currentValue = currentValue[0].lastChild;
+                currentValue = currentValue[0].lastChild.value;
             }
             else {
                 currentValue = currentValues.filter((element)=> {
                     return element.className === `_${input.id}`;
                 })
-                currentValue = currentValue[0]
+                currentValue = currentValue[0].value
             }
-            input.value = currentValue.value;
+            input.value = currentValue;
         }) 
     }
 

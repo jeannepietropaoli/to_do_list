@@ -1,6 +1,5 @@
 import '../css/TaskBoard.css';
-import {Task, TaskList} from '../functionnalities/Task';
-import { modalContainer, form, manageModalReset, formEditMode } from '../functionnalities/modal';
+import { formEditMode } from '../functionnalities/modal';
 import { ProjectList } from '../functionnalities/Project';
 
 export const TASKGRID = document.querySelector('.taskListGrid');

@@ -1,5 +1,4 @@
 import { ProjectList } from "../functionnalities/Project";
-import { TaskList } from '../functionnalities/Task';
 import { newTask, TaskBoard } from "./TaskBoard";
 
 export const addProjectBtn = document.querySelector('.addProject');
@@ -17,12 +16,12 @@ export const ProjectBoard = (() => {
         projectList.appendChild(newProjectContainer);
         return newProjectContainer;
     }
-    
+
     const displayNewProjectTitle = (projectName, newProjectContainer) => {
         const newProjectTitle = document.createElement('h4');
         newProjectTitle.textContent = projectName;
         newProjectContainer.appendChild(newProjectTitle);
-        selectTheProject(newProjectTitle);
+        selectTheProject(newProjectTitle);   
     }
 
     const displayNewProjectDeleteBtn = (newProjectContainer) => {
@@ -35,7 +34,6 @@ export const ProjectBoard = (() => {
 
     const selectTheProject = (clickableSection)=> {
         clickableSection.addEventListener('click', (e)=> {
-            ProjectList.currentProject.taskList.printList();
             if (ProjectList.getList().includes(ProjectList.currentProject)) {
                 removeHighlight(selectProjectBoardCurrentProject());
             }
@@ -53,7 +51,6 @@ export const ProjectBoard = (() => {
 
     const updateDataIndex = ()=> {
         const deletBtns = Array.from(document.querySelectorAll('img[data-index]'));
-        console.log(deletBtns)
         if (deletBtns.length>0){
             deletBtns[0].setAttribute('data-index', 0);
             for (let i=0 ; i<deletBtns.length-1; i++){
