@@ -1,5 +1,5 @@
 import { ProjectList } from "../functionnalities/Project";
-import { projectList } from '../functionnalities/Project';
+import { TaskList } from '../functionnalities/Task';
 import { newTask, TaskBoard } from "./TaskBoard";
 
 export const addProjectBtn = document.querySelector('.addProject');
@@ -35,6 +35,7 @@ export const ProjectBoard = (() => {
 
     const selectTheProject = (clickableSection)=> {
         clickableSection.addEventListener('click', (e)=> {
+            ProjectList.currentProject.taskList.printList();
             if (ProjectList.getList().includes(ProjectList.currentProject)) {
                 removeHighlight(selectProjectBoardCurrentProject());
             }

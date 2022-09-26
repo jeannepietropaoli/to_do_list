@@ -34,7 +34,9 @@ addProjectBtn.addEventListener('click', ()=> {
     if (projectNameInput.value !== ''){
         const brandNewProject = new Project(projectNameInput.value);
         ProjectList.addProject(brandNewProject);
+        console.log(ProjectList.currentProject.taskList.getList());
         ProjectBoard.displayNewProject(brandNewProject.title);
+        console.log(ProjectList.currentProject.taskList.getList())
         ProjectBoard.clearProjectNameInput();
     }
 })

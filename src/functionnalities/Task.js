@@ -83,11 +83,16 @@ export const TaskList = ()=> {
         list.splice(taskIndex, 1, editedTask);
     }
 
+    const printList = ()=> {
+        console.log(list);
+    }
+
     return {
         getList,
         addTask,
         deleteTask, 
-        editTask
+        editTask,
+        printList
     }
 }
 

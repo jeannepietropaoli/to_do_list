@@ -104,17 +104,30 @@ export const formEditMode = (()=> {
 
     const fillFormInputsWithCurrentValues = (currentValues) => {
         form.INPUTS.forEach((input) => {
-            const currentValue = currentValues.filter((element)=> {
-                return element.className === `_${input.id}`;
-            }) 
-            input.value = currentValue[0].value;
+            let currentValue;
+            if (input.id === 'state') {
+                currentValue = currentValues.filter((element)=> { 
+                    return element.className === 'stateContainer';
+                }) 
+                currentValue = currentValue[0].lastChild;
+            }
+            else {
+                currentValue = currentValues.filter((element)=> {
+                    return element.className === `_${input.id}`;
+                })
+                currentValue = currentValue[0]
+            }
+            input.value = currentValue.value;
         }) 
     }
 
     const validateChanges = (e, inputs, stateColorPoint, flag)=> {
             let editedTask = new Task(...form.getTaskDetailsValues());
+            console.log(e.target.parentElement.parentElement.getAttribute('data-index'));
             ProjectList.currentProject.taskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
-            editButton.displayEditedTask(editedTask, inputs, stateColorPoint, flag);
+            ProjectList.currentProject.taskList.printList();
+            const taskContainer = e.target.parentElement.parentElement;
+            editButton.displayEditedTask(editedTask, inputs, stateColorPoint, flag, taskContainer);
             manageModalReset();
             form.SUBMIT_BTN.disabled = false;
             SUBMIT_CHANGES_BTN.disabled = true;

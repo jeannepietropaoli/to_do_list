@@ -176,10 +176,12 @@
 }
 
 .stateColorPoint {
-    position: absolute;
-    right: 15px;
-    bottom: 12px;
     height: 20px;
     width: auto;
+}
+
+.stateContainer {
+    display: flex;
+    align-items: center;
 }
 
