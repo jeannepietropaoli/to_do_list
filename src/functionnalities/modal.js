@@ -10,18 +10,19 @@ export const modalContainer = (()=> {
     }
     const closeModal = ()=> {
         MODAL_CONTAINER.classList.remove('shown');
+        form.clearInputsValues();
     }
+    const activateCloseBtn = (()=> {
+        closeModalBtn.addEventListener('click', ()=> {
+            closeModal();
+        })
+    })()
     return {
         openModal,
         closeModal,
         closeModalBtn
     }
 })()
-
-modalContainer.closeModalBtn.addEventListener('click', ()=> {
-    modalContainer.closeModal();
-    form.clearInputsValues();
-});
 
 export const form = (()=> {
     const INPUTS = Array.from(document.querySelectorAll('.modal input[id]'));
@@ -49,7 +50,7 @@ export const form = (()=> {
 
     const isOneInputInvalid = ()=> {
         return INPUTS.some(input => {
-            return input == '';
+            return input.value == '';
         })
     }
 
@@ -123,9 +124,7 @@ export const formEditMode = (()=> {
 
     const validateChanges = (e, inputs, stateColorPoint, flag)=> {
             let editedTask = new Task(...form.getTaskDetailsValues());
-            console.log(e.target.parentElement.parentElement.getAttribute('data-index'));
             ProjectList.currentProject.taskList.editTask(e.target.parentElement.parentElement.getAttribute('data-index'), editedTask);
-            ProjectList.currentProject.taskList.printList();
             const taskContainer = e.target.parentElement.parentElement;
             editButton.displayEditedTask(editedTask, inputs, stateColorPoint, flag, taskContainer);
             manageModalReset();

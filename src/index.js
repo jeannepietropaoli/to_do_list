@@ -7,17 +7,18 @@ import { modalContainer, form, manageModalReset, formEditMode } from './function
 import { addProjectBtn, projectNameInput, ProjectBoard } from './view  ihm/ProjectBoard';
 import { Project, ProjectList, firstProject } from './functionnalities/Project';
 
-ADDTASKBTN.addEventListener('click', ()=> {modalContainer.openModal()});
+ADDTASKBTN.addEventListener('click', ()=> {
+    modalContainer.openModal()
+});
 
 function manageTaskCreation() {
     const brandNewTask = new Task(...form.getTaskDetailsValues());
-    console.log(brandNewTask);
-    console.log(brandNewTask.priority);
     ProjectList.currentProject.taskList.addTask(brandNewTask);
     newTask.display();
 }
 
 form.SUBMIT_BTN.addEventListener('click', ()=> {
+    console.log(form.isOneInputInvalid())
     if (!form.isOneInputInvalid()){
         if (form.SUBMIT_BTN.id === 'submit'){
             manageTaskCreation();
