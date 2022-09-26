@@ -1,0 +1,148 @@
+.modalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(220,220,220, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.modalContainer.shown {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal {
+    position: relative;
+    width: 500px;
+    max-width: 100%;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 2px 5px 3px lightgray;
+    padding: 20px;
+    background-color: white;
+}
+
+#closeModal {
+    cursor: pointer;
+}
+
+#editMode {
+    position: absolute;
+    left: 20px;
+}
+
+#submit:disabled {
+    visibility: hidden;
+}
+
+#submit,
+#editMode {
+    border: 2px solid #1CFF70;
+    color: #1CFF70;
+    font-weight: 900;
+    background-color: white;
+    padding: 8px 25px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 3px lightgray;
+    cursor: pointer;
+    position: relative;
+    bottom: 0px;
+    transition: bottom 0.1s;
+}
+
+#submit:hover,
+#editMode:hover {
+    bottom: 5px;
+    background-color: #1CFF70;
+    border-color: transparent;
+    color: white;
+}
+
+#editMode:disabled {
+    visibility: hidden;
+}
+
+.formField {
+    display: flex;
+    gap: 10px;
+}
+
+.formFields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formField label {
+    width: 100px;
+}
+
+.formField input,
+.formField select {
+    box-sizing: border-box;
+    width: 220px;
+}
+
+.formField input:hover {
+    border-color: #1CFF70;
+}
+
+form button {
+    margin-top: 15px;
+}
+
+.formField input:focus {
+    outline-color: #1CFF70;
+}
+
+.formField input[required] + span{
+    position: relative;
+    display: inline;
+}
+
+.formField input[required] + span::before {
+    content: 'required';
+    font-size: 9px;
+    padding: 0.1vw;
+    color: #333333;
+    background-color: #1CFF70;
+    position: absolute;
+    top: -1.5em;
+    right: 1.2em;
+    padding: 1px 8px;
+}
+
+input[required]:invalid:placeholder-shown + span::after {
+    visibility: hidden;
+}
+
+input[required]:invalid:not(:placeholder-shown) + span::after {
+    content: 'x';
+    font-size: 11px;
+    color: red;
+    position: absolute;
+    top: 2px;
+    right: -2px;
+    visibility: visible;
+}
+
+input[required]:valid + span::after {
+    content: ' 🗸';
+    font-size: 11px;
+    color: green;
+    position: absolute;
+    top: 2px;
+    right: -2px;
+}
+
+#closeModal {
+    display: inline-block;
+    width: min-content;
+}

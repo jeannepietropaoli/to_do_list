@@ -18,6 +18,7 @@ body {
     justify-items: stretch;
     font-family: 'main';
     font-size: 0.8rem;
+    color: #333333;
 }
 
 .header {
@@ -59,7 +60,7 @@ main {
 #logoText {
     font-family: 'logoFont';
     font-size: 18px;
-    color: #BBA7FD;
+    color: #1CFF70;
     margin: 0;
 }
 

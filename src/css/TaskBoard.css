@@ -1,13 +1,50 @@
 .taskListGrid {
     width: 100%;
+    min-width: 600px;
     background-color: lightgray;
     row-gap: 10px;
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr 1fr;
-    grid-template-rows: 20px;
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content;
     grid-auto-rows: 45px;
     justify-items: stretch;
     align-items: stretch;
+}
+
+.task > *,
+.taskListHeaders > * {
+    margin: 0;
+}
+
+.taskListHeaders h4,
+.task input,
+.options,
+.priorityFlag {
+    padding: 5px 15px;
+}
+
+.task input {
+    border: 1px dotted transparent;
+    background-color: transparent;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: e-resize;
+}
+
+.task input::selection {
+    pointer-events: none;
+}
+
+.task,
+.taskListHeaders {
+    width: 100%;
+    min-width: max-content;
+    display: grid;
+    grid-template-columns: 18% 25% 10% 15% 10% 11% 1fr;
+    justify-content: stretch;
+    align-items: center;
 }
 
 .taskListGrid > * {
@@ -15,7 +52,136 @@
     margin: 0px;
 }
 
-.addBtn {
-    grid-column: 1 / -1;
-    border: 2px dotted grey;
+@keyframes animate {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
+
+
+.addBtn {
+	position: relative;
+	z-index: 0;
+	border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addBtn:hover {
+    cursor: pointer;
+}
+
+.addBtn::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    height: 100%;
+    width : 100%;
+	border-radius: 6px;
+    background: #1CFF70;
+    background-size: 600% 600%;
+}
+
+.addBtn::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 3px;
+    top: 3px;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    background: white;
+    border-radius: 5px;
+}
+
+	
+.addBtn:hover::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    height: 100%;
+    width : 100%;
+	border-radius: 6px;
+    background: linear-gradient(45deg, #10e8a7, #bde810, #08c875);
+    background-size: 600% 600%;
+    animation: animate 4s ease infinite;
+}
+
+.addBtn:hover::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 3px;
+    top: 3px;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    background: white;
+    border-radius: 5px;
+}
+
+.options img {
+    height: 20px;
+    width: auto;
+}
+
+.options img:hover {
+    cursor: pointer;
+}
+
+.priorityFlag {
+    height: 30px;
+    width: auto;
+}
+
+.taskBoardHeader {
+    display: flex;
+    justify-content: space-between ;
+}
+
+.flagsChart {
+    display: flex;
+    gap: 10px;
+    font-size: 10px;
+    background-color: white;
+    align-items: center;
+    height: fit-content;
+    padding: 5px;
+    
+}
+
+.flagsChart > div {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.flagsChart img {
+    height: 20px;
+    width: auto;
+}
+
+.flagsChart p {
+    margin: 0;
+}
+
+.task{
+    position: relative;
+}
+
+.stateColorPoint {
+    height: 20px;
+    width: auto;
+}
+
+.stateContainer {
+    display: flex;
+    align-items: center;
+}
+
