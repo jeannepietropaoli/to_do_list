@@ -99,3 +99,12 @@ export const ProjectBoard = (() => {
         selectProjectBoardCurrentProject
     }
 })()
+
+export const displayLocalStoragedProjects = (()=> {
+    console.log(JSON.parse(localStorage.getItem('savedProjectList')));
+    const localStoragedProjects = JSON.parse(localStorage.getItem('savedProjectList'))
+    for (const projectKey in localStoragedProjects) {
+        console.log(localStoragedProjects[projectKey]);
+        ProjectBoard.displayNewProject(localStoragedProjects[projectKey]._title)
+    }
+})

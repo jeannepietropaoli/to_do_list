@@ -1,5 +1,6 @@
 import { TaskList } from "./Task";
 import { ProjectBoard } from "../view  ihm/ProjectBoard";
+import { populateStorage } from '../index';
 
 export class Project {
 
@@ -37,6 +38,7 @@ export const ProjectList = (()=> {
 
     const deleteProject = (projectIndex) => {
         list.splice(projectIndex , 1);
+        populateStorage()
     }
 
     return {

@@ -4,7 +4,7 @@ import './css/projectBoard.css';
 import {Task} from './functionnalities/Task';
 import {newTask, ADDTASKBTN } from './view  ihm/TaskBoard';
 import { modalContainer, form, manageModalReset } from './functionnalities/modal';
-import { addProjectBtn, projectNameInput, ProjectBoard } from './view  ihm/ProjectBoard';
+import { addProjectBtn, projectNameInput, ProjectBoard, displayLocalStoragedProjects } from './view  ihm/ProjectBoard';
 import { Project, ProjectList } from './functionnalities/Project';
 
 ADDTASKBTN.addEventListener('click', ()=> {
@@ -35,8 +35,24 @@ addProjectBtn.addEventListener('click', ()=> {
         ProjectList.addProject(brandNewProject);
         ProjectBoard.displayNewProject(brandNewProject.title);
         ProjectBoard.clearProjectNameInput();
+        populateStorage()
     }
 })
+
+export function populateStorage() {
+    localStorage.setItem('savedProjectList', JSON.stringify(ProjectList.getList()));
+}
+
+if (localStorage.length > 0){
+    displayLocalStoragedProjects(); 
+/* a deja ete initilaise */
+}
+
+else {
+    populateStorage();
+}
+  
+
 
 
 
