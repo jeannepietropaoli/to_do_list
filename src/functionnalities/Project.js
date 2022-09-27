@@ -29,7 +29,7 @@ export const ProjectList = (()=> {
     const list = [];
 
     const getList = ()=> {
-        return list;
+            return list;
     }
 
     const addProject = (newProject)=> {
@@ -58,7 +58,4 @@ export const firstProject = (title)=> {
 
 ProjectList.currentProject = firstProject('First Project - Start here');
 ProjectBoard.highlightCurrentProject(ProjectBoard.selectProjectBoardCurrentProject());
-
-
-
 

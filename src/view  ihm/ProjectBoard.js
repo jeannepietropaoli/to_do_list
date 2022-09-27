@@ -92,7 +92,13 @@ export const ProjectBoard = (() => {
         return document.querySelector(`img[data-index = '${currentProjectIndex}']`).parentElement;
     }
 
+   /*  const deleteDefaultProject = ()=> {
+        console.log(projectList.firstElementChild)
+        projectList.removeChild(projectList.firstElementChild)
+    } */
+
     return {
+        deleteDefaultProject,
         displayNewProject,
         clearProjectNameInput,
         highlightCurrentProject,
@@ -101,10 +107,14 @@ export const ProjectBoard = (() => {
 })()
 
 export const displayLocalStoragedProjects = (()=> {
-    console.log(JSON.parse(localStorage.getItem('savedProjectList')));
-    const localStoragedProjects = JSON.parse(localStorage.getItem('savedProjectList'))
+   /*  ProjectBoard.deleteDefaultProject(); */
+    const localStoragedProjects = JSON.parse(localStorage.getItem('savedProjectList'));
+    let i=0;
     for (const projectKey in localStoragedProjects) {
-        console.log(localStoragedProjects[projectKey]);
-        ProjectBoard.displayNewProject(localStoragedProjects[projectKey]._title)
+        if (i>0) {
+            ProjectBoard.displayNewProject(localStoragedProjects[projectKey]._title);
+            ProjectList.addProject(localStoragedProjects[projectKey])
+        }
+        i++;
     }
 })
