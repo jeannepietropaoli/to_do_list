@@ -17,6 +17,10 @@ export class Project {
         this._title = value;
     }
 
+    set taskList(value) {
+        this._taskList = value;
+    }
+
     get taskList() {
         return this._taskList;
     }
@@ -38,7 +42,7 @@ export const ProjectList = (()=> {
 
     const deleteProject = (projectIndex) => {
         list.splice(projectIndex , 1);
-        populateStorage()
+        populateProjectStorage()
     }
 
     return {
@@ -56,6 +60,10 @@ export const firstProject = (title)=> {
     return project
 }
 
-ProjectList.currentProject = firstProject('First Project - Start here');
-ProjectBoard.highlightCurrentProject(ProjectBoard.selectProjectBoardCurrentProject());
+export function setStartingProject(){
+    ProjectList.currentProject = firstProject('First Project - Start here');
+    ProjectBoard.highlightCurrentProject(ProjectBoard.selectProjectBoardCurrentProject());
+}
+
+
 

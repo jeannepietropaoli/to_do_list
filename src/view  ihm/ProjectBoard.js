@@ -38,6 +38,7 @@ export const ProjectBoard = (() => {
                 removeHighlight(selectProjectBoardCurrentProject());
             }
             ProjectList.currentProject = ProjectList.getList()[e.target.nextElementSibling.getAttribute('data-index')];
+            localStorage.setItem('currentProject', JSON.stringify(ProjectList.currentProject));
             TaskBoard.clearTasks();
             highlightCurrentProject(selectProjectBoardCurrentProject());
             TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
@@ -92,29 +93,19 @@ export const ProjectBoard = (() => {
         return document.querySelector(`img[data-index = '${currentProjectIndex}']`).parentElement;
     }
 
-   /*  const deleteDefaultProject = ()=> {
-        console.log(projectList.firstElementChild)
-        projectList.removeChild(projectList.firstElementChild)
-    } */
-
     return {
-        deleteDefaultProject,
         displayNewProject,
         clearProjectNameInput,
+        removeHighlight,
         highlightCurrentProject,
         selectProjectBoardCurrentProject
     }
 })()
 
 export const displayLocalStoragedProjects = (()=> {
-   /*  ProjectBoard.deleteDefaultProject(); */
-    const localStoragedProjects = JSON.parse(localStorage.getItem('savedProjectList'));
-    let i=0;
-    for (const projectKey in localStoragedProjects) {
-        if (i>0) {
-            ProjectBoard.displayNewProject(localStoragedProjects[projectKey]._title);
-            ProjectList.addProject(localStoragedProjects[projectKey])
-        }
-        i++;
-    }
+    console.log(ProjectList.getList());
+    ProjectList.getList().forEach(project => {
+        ProjectBoard.displayNewProject(project.title);
+    })
 })
+

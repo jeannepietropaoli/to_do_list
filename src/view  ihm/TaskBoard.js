@@ -18,9 +18,9 @@ export const TaskBoard = (()=> {
         taskBoardProjectTitle.textContent = `TaskBoard ~ Selected project : ${title}`;
     }
 
-    const displayFirstProjectTitle = (() => {
+   /*  const displayFirstProjectTitle = (() => {
         displayProjectTitle(ProjectList.currentProject.title);
-    })()
+    })() */
     
     return {
         clearTasks,
