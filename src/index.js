@@ -22,7 +22,7 @@ form.SUBMIT_BTN.addEventListener('click', ()=> {
         if (form.SUBMIT_BTN.id === 'submit'){
             manageTaskCreation();
             manageModalReset();
-            populateTaskListStorage();
+            populateTaskListStorage()
         }
     }
     else {
@@ -36,7 +36,7 @@ addProjectBtn.addEventListener('click', ()=> {
         ProjectList.addProject(brandNewProject);
         ProjectBoard.displayNewProject(brandNewProject.title);
         ProjectBoard.clearProjectNameInput();
-        console.log(ProjectList.getList());
+        console.log(ProjectList.getList()[0].taskList.getList());
         populateProjectStorage();
     }
 })
@@ -51,6 +51,13 @@ export function populateTaskStorage(project) {
     localStorage.setItem(project._title, JSON.stringify(project.taskList.getList()));
 }
 
+function populateTaskListStorage() {
+    localStorage.setItem('savedTasksLists', JSON.stringify(ProjectList.getList().map(project => {
+        return project.taskList.getList()
+    })))
+    console.log(JSON.parse(localStorage.getItem('savedTasksLists')));
+}
+
 function retrieveSavedProjects() {
     for (const projectKey in localStoragedProjects) {
         const retrievedProject = new Project(localStoragedProjects[projectKey]._title);
@@ -63,17 +70,44 @@ function retrievedCurrentProject() {
     ProjectList.currentProject = ProjectList.getList().filter(project => project.title === savedCurrentProject._title)[0];
 }
 
+function retrieveSavedTaskLists() {
+    const savedTaskLists = JSON.parse(localStorage.getItem('savedTasksLists'));
+    let i = 0;
+    for (const taskListKey in savedTaskLists) {
+        for (const task in savedTaskLists[taskListKey]) {
+            const taskToRetrieve = savedTaskLists[taskListKey][task];
+            const arrInfosOfTaskToRetrieve = Object.keys(taskToRetrieve).map(key => taskToRetrieve[key]);
+            const newTask = new Task(...arrInfosOfTaskToRetrieve);
+            ProjectList.getList()[i].taskList.addTask(newTask);
+            console.log(newTask);
+        }
+        i++
+    }
+}
+
+function displayLocalStoragedCurrentProjectTaskList() {
+
+}
+
 if (localStorage.length === 0) {
     setStartingProject();
     TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
     localStorage.setItem('currentProject', JSON.stringify(ProjectList.currentProject));
     populateProjectStorage()
+    localStorage.setItem('savedTaskLists', [[]]);
 }
 
 else {
     retrieveSavedProjects()
     retrievedCurrentProject()
+    retrieveSavedTaskLists();
+    let i = 0;
+    ProjectList.currentProject.taskList.getList().forEach((task)=> {
+        newTask.displayEachTask(i);
+        i = i+1;
+        }) 
     displayLocalStoragedProjects();
+    displayLocalStoragedCurrentProjectTaskList();
     ProjectBoard.highlightCurrentProject(ProjectBoard.selectProjectBoardCurrentProject())
 }
 
