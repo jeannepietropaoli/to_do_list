@@ -60,6 +60,16 @@ export const ProjectBoard = (() => {
         }
     }
 
+    const resetCurrentProjectIfDeleted = () => {
+        if (! ProjectList.getList().includes(ProjectList.currentProject)) {
+            ProjectList.currentProject = ProjectList.getList()[0];
+            localStorage.setItem('currentProject', JSON.stringify(ProjectList.currentProject));
+            TaskBoard.displayCurrentProjectsTasks(); 
+            TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
+            highlightCurrentProject(selectProjectBoardCurrentProject());
+        } 
+    }
+
     const activateDeleteBtn = (deleteBtn) => {
         deleteBtn.addEventListener('click', (e)=> {
             if (ProjectList.currentProject === ProjectList.getList()[e.target.getAttribute('data-index')]){
@@ -68,14 +78,7 @@ export const ProjectBoard = (() => {
             projectList.removeChild(e.target.parentElement);
             ProjectList.deleteProject(e.target.getAttribute('data-index'));
             updateDataIndex();
-
-            if (! ProjectList.getList().includes(ProjectList.currentProject)) {
-                ProjectList.currentProject = ProjectList.getList()[0];
-                localStorage.setItem('currentProject', JSON.stringify(ProjectList.currentProject));
-                TaskBoard.displayCurrentProjectsTasks(); 
-                TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
-                highlightCurrentProject(selectProjectBoardCurrentProject());
-            }
+           resetCurrentProjectIfDeleted();
         })
     }
 
@@ -96,6 +99,7 @@ export const ProjectBoard = (() => {
     }
 
     const selectProjectBoardCurrentProject = ()=> {
+        console.log(ProjectList.currentProject)
         const currentProjectIndex = ProjectList.getList().indexOf(ProjectList.currentProject).toString();
         return document.querySelector(`img[data-index = '${currentProjectIndex}']`).parentElement;
     }
@@ -110,7 +114,6 @@ export const ProjectBoard = (() => {
 })()
 
 export const displayLocalStoragedProjects = (()=> {
-    console.log(ProjectList.getList());
     ProjectList.getList().forEach(project => {
         ProjectBoard.displayNewProject(project.title);
     })

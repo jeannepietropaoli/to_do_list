@@ -1,5 +1,5 @@
 import { isAfter, isBefore, isSameDay, parseISO } from "date-fns"
-import { populateTaskListStorage } from "../index";
+import { populateTaskListStorage } from "./localStorage";
 
 export class Task {
 
