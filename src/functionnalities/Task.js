@@ -1,4 +1,5 @@
 import { isAfter, isBefore, isSameDay, parseISO } from "date-fns"
+import { populateTaskListStorage } from "../index";
 
 export class Task {
 
@@ -73,14 +74,17 @@ export const TaskList = ()=> {
 
     const addTask = (newTask)=> {
         list.push(newTask);
+        populateTaskListStorage();
     }
 
     const deleteTask = (taskIndex) => {
         list.splice(taskIndex , 1);
+        populateTaskListStorage();
     }
 
     const editTask = (taskIndex, editedTask) => {
         list.splice(taskIndex, 1, editedTask);
+        populateTaskListStorage();
     }
 
     const printList = ()=> {

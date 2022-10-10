@@ -22,7 +22,7 @@ form.SUBMIT_BTN.addEventListener('click', ()=> {
         if (form.SUBMIT_BTN.id === 'submit'){
             manageTaskCreation();
             manageModalReset();
-            populateTaskListStorage()
+           /*  populateTaskListStorage() */
         }
     }
     else {
@@ -47,15 +47,10 @@ export function populateProjectStorage() {
     localStorage.setItem('savedProjectList', JSON.stringify(ProjectList.getList()));
 }
 
-export function populateTaskStorage(project) {
-    localStorage.setItem(project._title, JSON.stringify(project.taskList.getList()));
-}
-
-function populateTaskListStorage() {
+export function populateTaskListStorage() {
     localStorage.setItem('savedTasksLists', JSON.stringify(ProjectList.getList().map(project => {
         return project.taskList.getList()
     })))
-    console.log(JSON.parse(localStorage.getItem('savedTasksLists')));
 }
 
 function retrieveSavedProjects() {
@@ -79,7 +74,6 @@ function retrieveSavedTaskLists() {
             const arrInfosOfTaskToRetrieve = Object.keys(taskToRetrieve).map(key => taskToRetrieve[key]);
             const newTask = new Task(...arrInfosOfTaskToRetrieve);
             ProjectList.getList()[i].taskList.addTask(newTask);
-            console.log(newTask);
         }
         i++
     }
@@ -104,6 +98,7 @@ else {
     TaskBoard.displayCurrentProjectsTasks();
     displayLocalStoragedProjects();
     ProjectBoard.highlightCurrentProject(ProjectBoard.selectProjectBoardCurrentProject());
+    TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
 }
 
 

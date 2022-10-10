@@ -1,6 +1,7 @@
 import { TaskList } from "./Task";
 import { ProjectBoard } from "../view  ihm/ProjectBoard";
-import { populateProjectStorage } from '../index';
+import { TaskBoard } from "../view  ihm/TaskBoard";
+import { populateProjectStorage, populateTaskListStorage } from '../index';
 
 export class Project {
 
@@ -40,18 +41,22 @@ export const ProjectList = (()=> {
         if (! currentProject) {
             currentProject = list[0];
             localStorage.setItem('currentProject', JSON.stringify(currentProject));
+            TaskBoard.displayCurrentProjectsTasks();
+            /* ProjectBoard.highlightCurrentProject(ProjectBoard.selectProjectBoardCurrentProject()); */
         }
+
     }
 
     const addProject = (newProject)=> {
         list.push(newProject);
         populateProjectStorage();
+        /* populateTaskListStorage(); */
     }
 
     const deleteProject = (projectIndex) => {
         list.splice(projectIndex , 1);
-        resetCurrentProjectIfDeleted();
         populateProjectStorage();
+        populateTaskListStorage();
     }
 
     return {

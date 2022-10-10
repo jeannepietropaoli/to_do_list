@@ -65,9 +65,17 @@ export const ProjectBoard = (() => {
             if (ProjectList.currentProject === ProjectList.getList()[e.target.getAttribute('data-index')]){
                 TaskBoard.clearTasks();
             }
-            ProjectList.deleteProject(e.target.getAttribute('data-index'));
             projectList.removeChild(e.target.parentElement);
+            ProjectList.deleteProject(e.target.getAttribute('data-index'));
             updateDataIndex();
+
+            if (! ProjectList.getList().includes(ProjectList.currentProject)) {
+                ProjectList.currentProject = ProjectList.getList()[0];
+                localStorage.setItem('currentProject', JSON.stringify(ProjectList.currentProject));
+                TaskBoard.displayCurrentProjectsTasks(); 
+                TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
+                highlightCurrentProject(selectProjectBoardCurrentProject());
+            }
         })
     }
 
@@ -88,7 +96,6 @@ export const ProjectBoard = (() => {
     }
 
     const selectProjectBoardCurrentProject = ()=> {
-        console.log(ProjectList.currentProject)
         const currentProjectIndex = ProjectList.getList().indexOf(ProjectList.currentProject).toString();
         return document.querySelector(`img[data-index = '${currentProjectIndex}']`).parentElement;
     }
