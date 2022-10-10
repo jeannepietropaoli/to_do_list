@@ -1,6 +1,6 @@
 import { TaskList } from "./Task";
 import { ProjectBoard } from "../view  ihm/ProjectBoard";
-import { populateStorage } from '../index';
+import { populateProjectStorage } from '../index';
 
 export class Project {
 
@@ -36,19 +36,29 @@ export const ProjectList = (()=> {
             return list;
     }
 
+    const resetCurrentProjectIfDeleted = ()=> {
+        if (! currentProject) {
+            currentProject = list[0];
+            localStorage.setItem('currentProject', JSON.stringify(currentProject));
+        }
+    }
+
     const addProject = (newProject)=> {
         list.push(newProject);
+        populateProjectStorage();
     }
 
     const deleteProject = (projectIndex) => {
         list.splice(projectIndex , 1);
-        populateProjectStorage()
+        resetCurrentProjectIfDeleted();
+        populateProjectStorage();
     }
 
     return {
         currentProject,
         getList,
         addProject,
+        resetCurrentProjectIfDeleted,
         deleteProject
     }
 })()

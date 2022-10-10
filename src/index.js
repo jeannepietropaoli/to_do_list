@@ -37,7 +37,7 @@ addProjectBtn.addEventListener('click', ()=> {
         ProjectBoard.displayNewProject(brandNewProject.title);
         ProjectBoard.clearProjectNameInput();
         console.log(ProjectList.getList()[0].taskList.getList());
-        populateProjectStorage();
+        /* populateProjectStorage(); */
     }
 })
 
@@ -85,14 +85,14 @@ function retrieveSavedTaskLists() {
     }
 }
 
-function displayLocalStoragedCurrentProjectTaskList() {
-
+function populateCurrentProjectStorage() {
+    localStorage.setItem('currentProject', JSON.stringify(ProjectList.currentProject));
 }
 
 if (localStorage.length === 0) {
     setStartingProject();
     TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
-    localStorage.setItem('currentProject', JSON.stringify(ProjectList.currentProject));
+    populateCurrentProjectStorage();
     populateProjectStorage()
     localStorage.setItem('savedTaskLists', [[]]);
 }
@@ -101,14 +101,9 @@ else {
     retrieveSavedProjects()
     retrievedCurrentProject()
     retrieveSavedTaskLists();
-    let i = 0;
-    ProjectList.currentProject.taskList.getList().forEach((task)=> {
-        newTask.displayEachTask(i);
-        i = i+1;
-        }) 
+    TaskBoard.displayCurrentProjectsTasks();
     displayLocalStoragedProjects();
-    displayLocalStoragedCurrentProjectTaskList();
-    ProjectBoard.highlightCurrentProject(ProjectBoard.selectProjectBoardCurrentProject())
+    ProjectBoard.highlightCurrentProject(ProjectBoard.selectProjectBoardCurrentProject());
 }
 
 

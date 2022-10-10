@@ -68,7 +68,6 @@ export const ProjectBoard = (() => {
             ProjectList.deleteProject(e.target.getAttribute('data-index'));
             projectList.removeChild(e.target.parentElement);
             updateDataIndex();
-            
         })
     }
 
@@ -89,6 +88,7 @@ export const ProjectBoard = (() => {
     }
 
     const selectProjectBoardCurrentProject = ()=> {
+        console.log(ProjectList.currentProject)
         const currentProjectIndex = ProjectList.getList().indexOf(ProjectList.currentProject).toString();
         return document.querySelector(`img[data-index = '${currentProjectIndex}']`).parentElement;
     }

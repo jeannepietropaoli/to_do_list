@@ -18,13 +18,18 @@ export const TaskBoard = (()=> {
         taskBoardProjectTitle.textContent = `TaskBoard ~ Selected project : ${title}`;
     }
 
-   /*  const displayFirstProjectTitle = (() => {
-        displayProjectTitle(ProjectList.currentProject.title);
-    })() */
+    const displayCurrentProjectsTasks = () => {
+        let i = 0;
+        ProjectList.currentProject.taskList.getList().forEach((task)=> {
+            newTask.displayEachTask(i);
+            i = i+1;
+            }) 
+    }
     
     return {
         clearTasks,
-        displayProjectTitle
+        displayProjectTitle,
+        displayCurrentProjectsTasks
     }
 })()
 
@@ -243,6 +248,7 @@ export const newTask = (()=> {
             taskContainer.appendChild(flag.createPriorityDiv(newTask));
             taskContainer.appendChild(taskOptions.optionsDivSetUp());
         }
+
 
     return {
         display : ()=> {
