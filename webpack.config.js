@@ -2,31 +2,38 @@ var path = require("path");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
+  mode: 'development',
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: 'main.js',
-        clean: true,
     },
-    module : {
-		rules : [
-			{ test :  /\.css$/, use : ['style-loader', 'css-loader']} ,
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/i,
-                type: 'asset/resource',
-            },     
-            {
-                test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                use: ['file-loader'],
-              },
-		]
-	},
+    module: {
+        rules: [
+         {
+           test: /\.(png|svg|jpg|jpeg|gif)$/i,
+           loader : 'url-loader' ,
+         },
+         {
+            test: /\.(woff|woff2|eot|ttf|otf)$/i,
+            type: 'asset/resource',
+          },
+          {
+            test: /\.html$/i,
+            loader: "html-loader",
+          },
+          { test: /\.css$/i,
+          use: ['style-loader', 'css-loader'],}  
+        ],
+      },
+      devServer: {
+        static: './dist',
+      },
     devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
             title: 'To-do List App',
-            template: './src/index.ejs', // Load a custom template (ejs by default)
+            template: './src/index.html', // Load a custom template (ejs by default)
         })
     ]
 }
