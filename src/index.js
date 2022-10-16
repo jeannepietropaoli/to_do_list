@@ -8,6 +8,8 @@ import { addProjectBtn, projectNameInput, ProjectBoard, displayLocalStoragedProj
 import { Project, ProjectList, setStartingProject } from './functionnalities/Project';
 import { retrievedCurrentProject, retrieveSavedProjects, retrieveSavedTaskLists, populateCurrentProjectStorage, populateProjectStorage, isLocalStorageEmpty } from './functionnalities/localStorage'
 
+console.log(localStorage);
+
 ADDTASKBTN.addEventListener('click', ()=> {
     modalContainer.openModal()
 });

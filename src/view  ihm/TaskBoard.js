@@ -1,6 +1,17 @@
 import '../css/TaskBoard.css';
 import { formEditMode } from '../functionnalities/modal';
 import { ProjectList } from '../functionnalities/Project';
+import deleteTaskImg from '../delete.svg';
+import deleteTaskHoverImg from '../deleteHover.png';
+import editTaskImg from '../edit.svg';
+import editTaskHoverImg from '../editHover.png'; 
+import flagOnTimeImg from '../flag_onTime.png';
+import flagLateImg from '../flag_late.png';
+import flagDueTodayImg from '../flag_dueToday.png';
+import statePointToDoImg from '../to-do.png';
+import statePointInProgressImg from '../in progress.png';
+import statePointDoneImg from '../done.png';
+
 
 export const TASKGRID = document.querySelector('.taskListGrid');
 export const ADDTASKBTN = document.querySelector('.addBtn');
@@ -37,7 +48,7 @@ const deleteButton = (()=> {
     const create = ()=> {
         const deleteTask = document.createElement('img');
         deleteTask.classList.add('deleteTask');
-        deleteTask.setAttribute('src', '../src/delete.svg');
+        deleteTask.setAttribute('src', deleteTaskImg);
         manageDeleteTask(deleteTask);
         changeUrlOnHover(deleteTask)
         return deleteTask;
@@ -63,10 +74,10 @@ const deleteButton = (()=> {
 
     const changeUrlOnHover = (deleteBtn) => {
         deleteBtn.addEventListener('mouseover', ()=> {
-            deleteBtn.setAttribute('src', '../src/deleteHover.png')
+            deleteBtn.setAttribute('src', deleteTaskHoverImg)
         })
         deleteBtn.addEventListener('mouseout', ()=> {
-            deleteBtn.setAttribute('src', '../src/delete.svg')
+            deleteBtn.setAttribute('src', deleteTaskImg)
         })
     }
     
@@ -79,7 +90,7 @@ export const editButton = (()=> {
     const create = ()=> {
         const editTask = document.createElement('img');
         editTask.classList.add('editTask');
-        editTask.setAttribute('src', '../src/edit.svg');
+        editTask.setAttribute('src', editTaskImg);
         manageEditTask(editTask);
         changeUrlOnHover(editTask)
         return editTask;
@@ -120,17 +131,17 @@ export const editButton = (()=> {
             }
             valueToUpdate.value = editedTask[detail];
         }
-        stateColorPoint.setAttribute('src', `../src/${editedTask.state}.png`);
-        priorityFlag.setAttribute('src', `../src/flag_${editedTask.priority}.png`);
+        stateColorPoint.setAttribute('src', selectRightStateImg(editedTask));
+        priorityFlag.setAttribute('src', selectRightFlagImg(editedTask));
         (editedTask.state === 'done') ? taskContainer.style.opacity = 0.7 : taskContainer.style.opacity = 1;
     }
 
     const changeUrlOnHover = (editBtn) => {
         editBtn.addEventListener('mouseover', ()=> {
-            editBtn.setAttribute('src', '../src/editHover.png')
+            editBtn.setAttribute('src', editTaskHoverImg)
         })
         editBtn.addEventListener('mouseout', ()=> {
-            editBtn.setAttribute('src', '../src/edit.svg')
+            editBtn.setAttribute('src', editTaskImg)
         })
     }
 
@@ -163,12 +174,12 @@ const taskState = (task)=> {
 
     const createStateColorPoint = (task)=> {
         stateColorPoint.classList.add('stateColorPoint');
-        stateColorPoint.setAttribute('src', `../src/${task.state}.png`);
+        stateColorPoint.setAttribute('src', selectRightStateImg(task));
         return stateColorPoint;
     }
 
     const editColor = (task)=> {
-        stateColorPoint.setAttribute('src', `../src/${task.state}.png`)
+        stateColorPoint.setAttribute('src', selectRightStateImg(task))
     }
 
     const checkIfDone = (task)=> {
@@ -182,21 +193,56 @@ const taskState = (task)=> {
     }
 }
 
+const selectRightFlagImg = (task) => {
+    switch(task.priority) {
+        case 'onTime' : 
+        return flagOnTimeImg;
+        break;
+
+        case 'late' : 
+        return flagLateImg;
+        break;
+
+        case 'dueToday' : 
+        return flagDueTodayImg;
+        break;
+
+    }
+}
+
+const selectRightStateImg = (task) => {
+    switch(task.state) {
+        case 'to-do' : 
+        return statePointToDoImg;
+        break;
+
+        case 'in progress' : 
+        return statePointInProgressImg;
+        break;
+
+        case 'done' : 
+        return statePointDoneImg;
+        break;
+
+    }
+}
+
 const taskPriority = ()=> {
     const priorityFlag = document.createElement('img');
 
     const createPriorityDiv = (task)=> {
-        priorityFlag.setAttribute('src', `../src/flag_${task.priority}.png`);
+        priorityFlag.setAttribute('src', selectRightFlagImg(task));
         priorityFlag.classList.add('priorityFlag');
         return priorityFlag;
     }
 
     const editColor = (task)=> {
-        priorityFlag.setAttribute('src', `../src/flag_${task.priority}.png`);
+        priorityFlag.setAttribute('src', selectRightFlagImg(task));
     }
     return {
         createPriorityDiv,
-        editColor
+        editColor,
+        selectRightFlagImg
     }
 }
 

@@ -1,5 +1,6 @@
 import { ProjectList } from "../functionnalities/Project";
 import { newTask, TaskBoard } from "./TaskBoard";
+import deleteProjectImg from '../deleteProject.png'; 
 
 export const addProjectBtn = document.querySelector('.addProject');
 export const projectNameInput = document.querySelector('#projectName');
@@ -26,7 +27,7 @@ export const ProjectBoard = (() => {
 
     const displayNewProjectDeleteBtn = (newProjectContainer) => {
         const newProjectDeleteBtn = document.createElement('img');
-        newProjectDeleteBtn.setAttribute('src', '../src/deleteProject.png');
+        newProjectDeleteBtn.setAttribute('src', deleteProjectImg);
         newProjectDeleteBtn.setAttribute('data-index', ProjectList.getList().length-1); 
         newProjectContainer.appendChild(newProjectDeleteBtn);
         return newProjectDeleteBtn;
