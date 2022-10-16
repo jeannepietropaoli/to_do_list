@@ -6,9 +6,7 @@ import {newTask, ADDTASKBTN, TaskBoard } from './view  ihm/TaskBoard';
 import { modalContainer, form, manageModalReset } from './functionnalities/modal';
 import { addProjectBtn, projectNameInput, ProjectBoard, displayLocalStoragedProjects } from './view  ihm/ProjectBoard';
 import { Project, ProjectList, setStartingProject } from './functionnalities/Project';
-import { retrievedCurrentProject, retrieveSavedProjects, retrieveSavedTaskLists, populateCurrentProjectStorage, populateProjectStorage, isLocalStorageEmpty } from './functionnalities/localStorage'
-
-console.log(localStorage);
+import { retrievedCurrentProject, retrieveSavedProjects, retrieveSavedTaskLists, populateCurrentProjectStorage, populateProjectStorage, isLocalStorageEmpty } from './functionnalities/localStorage';
 
 ADDTASKBTN.addEventListener('click', ()=> {
     modalContainer.openModal()
@@ -41,7 +39,7 @@ addProjectBtn.addEventListener('click', ()=> {
     }
 })
 
-if (isLocalStorageEmpty) {
+if (isLocalStorageEmpty()) {
     setStartingProject();
     TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
     populateCurrentProjectStorage();

@@ -100,7 +100,6 @@ export const ProjectBoard = (() => {
     }
 
     const selectProjectBoardCurrentProject = ()=> {
-        console.log(ProjectList.currentProject)
         const currentProjectIndex = ProjectList.getList().indexOf(ProjectList.currentProject).toString();
         return document.querySelector(`img[data-index = '${currentProjectIndex}']`).parentElement;
     }

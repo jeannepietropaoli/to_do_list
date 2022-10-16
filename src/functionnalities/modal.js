@@ -1,4 +1,4 @@
-import {Task, TaskList} from '../functionnalities/Task';
+import { Task } from '../functionnalities/Task';
 import { editButton } from '../view  ihm/TaskBoard';
 import { ProjectList } from '../functionnalities/Project';
 

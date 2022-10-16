@@ -33,7 +33,6 @@ export function retrieveSavedTaskLists() {
             const taskToRetrieve = savedTaskLists[taskListKey][task];
             const arrInfosOfTaskToRetrieve = Object.keys(taskToRetrieve).map(key => taskToRetrieve[key]);
             const newTask = new Task(...arrInfosOfTaskToRetrieve);
-            console.log(ProjectList.getList()[i])
             ProjectList.getList()[i].taskList.addTask(newTask);
         }
         i++
