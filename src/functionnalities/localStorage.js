@@ -44,5 +44,5 @@ export function populateCurrentProjectStorage() {
 }
 
 export function isLocalStorageEmpty(){
-    localStorage.length === 0 ? true : false;
+    return localStorage.length === 0 ? true : false;
 }

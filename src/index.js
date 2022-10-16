@@ -39,6 +39,7 @@ addProjectBtn.addEventListener('click', ()=> {
     }
 })
 
+
 if (isLocalStorageEmpty()) {
     setStartingProject();
     TaskBoard.displayProjectTitle(ProjectList.currentProject.title);
