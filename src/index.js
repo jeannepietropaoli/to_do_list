@@ -3,13 +3,16 @@ import './css/modal.css';
 import './css/projectBoard.css';
 import { Task } from './functionnalities/Task';
 import {newTask, ADDTASKBTN, TaskBoard } from './view  ihm/TaskBoard';
-import { modalContainer, form, manageModalReset } from './functionnalities/modal';
+import { modalContainer, form, manageModalReset, formEditMode } from './functionnalities/modal';
 import { addProjectBtn, projectNameInput, ProjectBoard, displayLocalStoragedProjects } from './view  ihm/ProjectBoard';
 import { Project, ProjectList, setStartingProject } from './functionnalities/Project';
 import { retrievedCurrentProject, retrieveSavedProjects, retrieveSavedTaskLists, populateCurrentProjectStorage, populateProjectStorage, isLocalStorageEmpty } from './functionnalities/localStorage';
 
+formEditMode.SUBMIT_CHANGES_BTN.disabled = true;
+
 ADDTASKBTN.addEventListener('click', ()=> {
-    modalContainer.openModal()
+    formEditMode.editModeActivated = false;
+    modalContainer.openModal();
 });
 
 function manageTaskCreation() {
@@ -19,7 +22,7 @@ function manageTaskCreation() {
 }
 
 form.SUBMIT_BTN.addEventListener('click', ()=> {
-    if (form.isEveryInputInvalid()){
+    if (form.isEveryInputValid()){
         if (form.SUBMIT_BTN.id === 'submit'){
             manageTaskCreation();
             manageModalReset();

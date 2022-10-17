@@ -1,5 +1,5 @@
 import '../css/TaskBoard.css';
-import { formEditMode } from '../functionnalities/modal';
+import { form, formEditMode } from '../functionnalities/modal';
 import { ProjectList } from '../functionnalities/Project';
 import deleteTaskImg from '../delete.svg';
 import deleteTaskHoverImg from '../deleteHover.png';
@@ -108,7 +108,7 @@ export const editButton = (()=> {
             })[0].firstChild;
             formEditMode.open(inputs);
             formEditMode.inputsValidation();
-            formEditMode.SUBMIT_CHANGES_BTN.addEventListener('click', ()=> {
+            formEditMode.SUBMIT_CHANGES_BTN.addEventListener('click', ()=> {  
                     formEditMode.validateChanges(e, inputs, stateColorPoint , flag[0]);
             }, {once : true})
         })
@@ -132,6 +132,7 @@ export const editButton = (()=> {
             valueToUpdate.value = editedTask[detail];
         }
         stateColorPoint.setAttribute('src', selectRightStateImg(editedTask));
+        console.log(editedTask.state)
         priorityFlag.setAttribute('src', selectRightFlagImg(editedTask));
         (editedTask.state === 'done') ? taskContainer.style.opacity = 0.7 : taskContainer.style.opacity = 1;
     }

@@ -48,7 +48,7 @@ export const form = (()=> {
         })
     }
 
-    const isEveryInputInvalid = ()=> {
+    const isEveryInputValid = ()=> {
         return INPUTS.every(input => {
             return input.value !== '';
         })
@@ -77,7 +77,7 @@ export const form = (()=> {
     return {
         INPUTS,
         getTaskDetailsValues,
-        isEveryInputInvalid,
+        isEveryInputValid,
         clearInputsValues,
         SUBMIT_BTN,
         errorDisplay
@@ -87,21 +87,26 @@ export const form = (()=> {
 export const formEditMode = (()=> {
     const SUBMIT_CHANGES_BTN = document.querySelector('#editMode');
 
+    let editModeActivated = false; 
+
     const open = (currentInputs)=> {
+        editModeActivated = true;
         form.SUBMIT_BTN.disabled = true;
         SUBMIT_CHANGES_BTN.disabled = false;
         fillFormInputsWithCurrentValues(currentInputs);
         modalContainer.openModal();
     }
-    
+
     const inputsValidation = () => {
         form.INPUTS.forEach(input => {
             input.addEventListener('change', ()=> {
-                (form.isEveryInputInvalid()) ? SUBMIT_CHANGES_BTN.disabled = false : 
+                if (editModeActivated) {
+                    (form.isEveryInputValid()) ? SUBMIT_CHANGES_BTN.disabled = false : 
                     SUBMIT_CHANGES_BTN.disabled = true;
+                }
                 })
             })
-    }
+    } 
 
     const fillFormInputsWithCurrentValues = (currentValues) => {
         form.INPUTS.forEach((input) => {
@@ -137,7 +142,8 @@ export const formEditMode = (()=> {
         fillFormInputsWithCurrentValues,
         SUBMIT_CHANGES_BTN, 
         open,
-        validateChanges
+        validateChanges,
+        editModeActivated
     }
 })()
 
