@@ -1,5 +1,7 @@
 # to_do_list
 
+https://jeannepietropaoli.github.io/to_do_list/
+
 The goal of this project is to create a to-do list app.
 
 ‘todos’ must be dynamically created objects, using either factories or constructors/classes to generate them.
