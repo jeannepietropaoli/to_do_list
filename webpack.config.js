@@ -34,7 +34,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'To-do List App',
-            template: './src/index.html', // Load a custom template (ejs by default)
+            template: './src/index.ejs', // Load a custom template (ejs by default)
         })
     ]
 }
