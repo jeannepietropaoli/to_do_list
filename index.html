@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List App</title>
+    <title>To-do List App</title>
+<script defer src="main.js"></script></head>
+<body>
+    <div class="header">
+        <h3>Welcome</h3>
+        <img id="profilePicture" src="../src/profilePic.png" alt="">
+    </div>
+    <div class="sidebar">
+        <div class="logoContainer">
+            <img id="taskImg" src="../src/taskGreen.png" alt="task logo">
+            <h3 id="logoText">TASKSS</h3>
+        </div>
+        <div class="addProjectContainer">
+            <input type="text" name="" placeholder="Your new project ..." id="projectName">
+            <button class="addProject"><img src="../src/plus.png" alt=""></button>
+        </div>
+        <div class="projectSection">
+            <ul id="projectList">
+            </ul>
+        </div>
+    </div>
+    <main>
+        <div class="taskBoardHeader">
+            <h3 id="taskBoardProjectTitle">TaskBoard ~ Selected project : </h3>
+            <div class="flagsChart">
+                <div>
+                    <img src="../src/flag_onTime.png" alt="on time flag">
+                    <p>on time</p>
+                </div>
+                <div>
+                    <img src="../src/flag_dueToday.png" alt="on time flag">
+                    <p>deadline today</p>
+                </div>
+                <div>
+                    <img src="../src/flag_late.png" alt="on time flag">
+                    <p>late</p>
+                </div>
+        </div>
+
+        </div>
+        <div class="taskListGrid">
+            <div class="taskListHeaders">
+                <h4 class="_title">Title</h4>
+                <h4 class="_description">Description</h4>
+                <h4 class="_dueDate">Due date</h4>
+                <h4 class="_category">Category</h4>
+                <h4 class="state">State</h4>
+                <h4 class="priority">Priority</h4>
+                <h4>Options</h4>
+            </div>
+            
+           
+                <div class="addBtn">Add a task</div>
+           
+        </div>
+    </main>
+
+    <div class="modalContainer">
+        <form class="modal" method="post">
+            <div id="closeModal">x</div>
+
+            <h2>Enter your task's details</h2>
+
+            <div class="formFields">
+                <div class="formField">
+                    <label for="title">Task title :</label>
+                    <input type="text" id="title" placeholder=" " required>
+                    <span></span>
+                </div>
+                <div class="formField">
+                    <label for="description">Description :</label>
+                    <input type="text" id="description" placeholder=" " required>
+                    <span></span>
+                </div>
+                <div class="formField">
+                    <label for="date">Task due date :</label>
+                    <input type="date" id="dueDate" placeholder=" " required>
+                    <span></span>
+                </div>
+                <div class="formField">
+                    <label for="category">Task category :</label>
+                    <input type="text" id="category" placeholder=" " required>
+                    <span></span>
+                </div>
+                <div class="formField">
+                <label for="state">Task state :</label>
+                <select name="state" id="state">
+                    <option value="to-do">to-do</option>
+                    <option value="in progress">in progress</option>
+                    <option value="done">done</option>
+                </select>
+            </div>
+            </div>
+
+            <button type="button" id="submit">Add to the list</button>
+            <button type="button" id="editMode" disabled>Submit changes</button>
+        </form>
+    </div>
+</div>
+
+<!-- <footer>
+    <a href="https://www.flaticon.com/free-icons/flag" title="flag icons">Flag icons created by IconMarketPK - Flaticon</a>
+</footer> -->
+</body>
+</html>
+</html>
