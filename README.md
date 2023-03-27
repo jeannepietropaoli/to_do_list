@@ -1,17 +1,39 @@
 # to_do_list
 
+## Live version
+
 https://jeannepietropaoli.github.io/to_do_list/
 
-The goal of this project is to create a to-do list app.
+## Description
 
-‘todos’ must be dynamically created objects, using either factories or constructors/classes to generate them.
+Project inside the Odin Project's Full Stack JavaScript course.
 
-todo-items are going to have a title, description, dueDate and priority and an edit and delete functions.
+To learn more about The Odin Project : https://www.theodinproject.com/
 
-The app should have projects that can also be dynamically created and each project should have its own to-do list.
+To learn more about the specific exercise : https://www.theodinproject.com/lessons/node-path-javascript-todo-list
 
-With this app we should try to separate the application logic (i.e. creating new todos, setting todos as complete, changing todo priority etc.) from the DOM-related stuff. We have to keep all of those things in separate modules.
+The goal of this project is to create a dynamic to-do list app.
 
-As I am already using webpack, a good practice would also be to add an external library such as date-fns for formatting and manipulating dates and times.
+## Skills to practice
 
-Finally the goal is to add some persistence to this todo app when the user refreshes the page, using the Web Storage API, in particular localStorage.
+- Using factories or classes to dynamically create tasks objects
+- Discovering and using a module bundler : webpack 
+- Try to separate the application logic (i.e. creating new todos, setting todos as complete, changing todo priority etc.) from the DOM-related stuff by creating their own modules
+- Using the Web Storage API, in particular localStorage, to add some persistence to this todo app when the user refreshes the page
+
+## Features
+- Create a project and its own to-do list
+- Switch between projects
+- Create a task inside of a specific project
+- Each task has a title, description, dueDate and priority (depending on the current date)
+- Tasks can be edited and deleted
+- Tasks have visual cues about their priority and status
+- Save in localStorage the projects and to-do lists of the user
+
+## Improvements
+
+As a first bigger scale project and a first time using webpack for this kind of project, the code would need lots of improvments to be clean. My code is very tightly coupled and hard to debug. Good first experience with webpack but got a bit overwhelmed.
+
+- Breaking code into smaller purer functions.
+- Organizing my assets into a folder of its own
+- TDD from the start could have been a good way of splitting the tasks of this project into small, easily solvable chunks and not get overwhelmed by the complexity and bugs
